@@ -1,10 +1,12 @@
-[gd_scene load_steps=46 format=3 uid="uid://dofqw67b6mgvx"]
+[gd_scene load_steps=50 format=3 uid="uid://dofqw67b6mgvx"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_yhf07"]
 [ext_resource type="Texture2D" uid="uid://di0yskydh6881" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/characters/PigLegs.png" id="1_yvhfw"]
 [ext_resource type="PackedScene" uid="uid://bkpwht0w408q0" path="res://scenes/tracer_bullet.tscn" id="2_npqes"]
 [ext_resource type="Texture2D" uid="uid://b4msm4kumldgw" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/characters/PigGunShoot.png" id="2_ob66f"]
 [ext_resource type="Texture2D" uid="uid://c8hlr8fvdkpyf" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/characters/PigGunWalk.png" id="3_dr5pe"]
+[ext_resource type="Script" path="res://scripts/PlayerCamera.gd" id="6_4cn7m"]
+[ext_resource type="Texture2D" uid="uid://dmfiw1jwdhl6" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/muzzle flash/pngtree-simple-muzzle-flash-vector-png-png-image_5797978.png" id="6_olv6l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0v3vm"]
 atlas = ExtResource("1_yvhfw")
@@ -396,12 +398,24 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MuzzleFlash:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_g28d2"]
 resource_name = "shooting"
 length = 0.250012
 loop_mode = 1
-step = 0.125
+step = 0.0625
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -437,6 +451,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(14, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MuzzleFlash:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875),
+"transitions": PackedFloat32Array(1, 1.07177, 1, 1.07177),
+"update": 1,
+"values": [true, false, true, false]
 }
 
 [sub_resource type="Animation" id="Animation_epu7y"]
@@ -479,6 +505,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MuzzleFlash:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v4i1l"]
 _data = {
@@ -487,6 +525,17 @@ _data = {
 "shooting": SubResource("Animation_g28d2"),
 "walking": SubResource("Animation_epu7y")
 }
+
+[sub_resource type="Gradient" id="Gradient_xhd86"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_idykw"]
+gradient = SubResource("Gradient_xhd86")
+width = 196
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.414948, 0.473582)
+fill_to = Vector2(0, 0.484536)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
@@ -517,6 +566,7 @@ libraries = {
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+script = ExtResource("6_4cn7m")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(11, 6)
@@ -526,5 +576,16 @@ collision_mask = 3
 [node name="FiringSpeedTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="MuzzleFlash" type="Sprite2D" parent="."]
+position = Vector2(35, 7)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_olv6l")
+
+[node name="MuzzleFlashLight" type="PointLight2D" parent="MuzzleFlash"]
+position = Vector2(780, -10)
+scale = Vector2(10, 16.0938)
+color = Color(1, 0.992157, 0.721569, 1)
+texture = SubResource("GradientTexture2D_idykw")
 
 [connection signal="timeout" from="FiringSpeedTimer" to="." method="_on_firing_speed_timer_timeout"]

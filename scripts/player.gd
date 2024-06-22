@@ -6,6 +6,9 @@ extends CharacterBody2D
 @onready var leg_animations = $LegAnimations
 @onready var ray_cast_2d = $RayCast2D
 @onready var firing_speed_timer = $FiringSpeedTimer
+@onready var muzzle_flash = $MuzzleFlash
+@onready var player_camera = $PlayerCamera
+
 
 @export var tracer_bullet_scene : PackedScene
 
@@ -34,8 +37,10 @@ func _physics_process(delta):
 	
 	if Input.is_action_pressed("shoot"):
 		body_animations.play("shooting")
+		player_camera.apply_shake()
 		if canShoot:
 			shoot()
+			muzzle_flash.visible = true
 			canShoot = false
 			firing_speed_timer.start()
 		
