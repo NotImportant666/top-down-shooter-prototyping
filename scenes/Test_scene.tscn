@@ -1,0 +1,101 @@
+[gd_scene load_steps=6 format=3 uid="uid://cal4ssq45r62t"]
+
+[ext_resource type="Texture2D" uid="uid://cbpe0epi3naqq" path="res://icon.svg" id="1_qydwx"]
+[ext_resource type="Script" path="res://scripts/Test_scene.gd" id="1_xchvf"]
+[ext_resource type="AudioStream" uid="uid://iuipd0k4ippt" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/SOUNDS/Environment sounds/creepy-ambience_C_minor.mp3" id="3_6yof0"]
+[ext_resource type="PackedScene" uid="uid://dofqw67b6mgvx" path="res://scenes/player.tscn" id="4_e780x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oi6vf"]
+size = Vector2(126, 128)
+
+[node name="TestScene" type="Node"]
+script = ExtResource("1_xchvf")
+
+[node name="BlackFadeControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="BlackFade" type="ColorRect" parent="BlackFadeControl"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_6yof0")
+volume_db = -10.0
+autoplay = true
+
+[node name="Player" parent="." instance=ExtResource("4_e780x")]
+position = Vector2(421, 336)
+
+[node name="Obstacles" type="Node" parent="."]
+
+[node name="wall" type="Sprite2D" parent="Obstacles"]
+position = Vector2(577.5, -13.5)
+scale = Vector2(9.24219, 0.210938)
+texture = ExtResource("1_qydwx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Obstacles/wall"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/wall/StaticBody2D"]
+shape = SubResource("RectangleShape2D_oi6vf")
+
+[node name="pillar" type="Sprite2D" parent="Obstacles"]
+position = Vector2(261, 241)
+scale = Vector2(0.386718, 0.347656)
+texture = ExtResource("1_qydwx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Obstacles/pillar"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/pillar/StaticBody2D"]
+shape = SubResource("RectangleShape2D_oi6vf")
+
+[node name="pillar2" type="Sprite2D" parent="Obstacles"]
+position = Vector2(658, 238)
+scale = Vector2(0.386718, 0.347656)
+texture = ExtResource("1_qydwx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Obstacles/pillar2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/pillar2/StaticBody2D"]
+shape = SubResource("RectangleShape2D_oi6vf")
+
+[node name="wall2" type="Sprite2D" parent="Obstacles"]
+position = Vector2(574, 656)
+scale = Vector2(9.24219, 0.210938)
+texture = ExtResource("1_qydwx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Obstacles/wall2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/wall2/StaticBody2D"]
+shape = SubResource("RectangleShape2D_oi6vf")
+
+[node name="wall3" type="Sprite2D" parent="Obstacles"]
+position = Vector2(-1, 330.125)
+scale = Vector2(0.13086, 5.35742)
+texture = ExtResource("1_qydwx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Obstacles/wall3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/wall3/StaticBody2D"]
+shape = SubResource("RectangleShape2D_oi6vf")
+
+[node name="wall4" type="Sprite2D" parent="Obstacles"]
+position = Vector2(1167, 319)
+scale = Vector2(0.13086, 5.35742)
+texture = ExtResource("1_qydwx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Obstacles/wall4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/wall4/StaticBody2D"]
+shape = SubResource("RectangleShape2D_oi6vf")

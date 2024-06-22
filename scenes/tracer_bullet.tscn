@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkpwht0w408q0"]
+
+[ext_resource type="Script" path="res://scripts/tracer_bullet.gd" id="1_n5gm3"]
+
+[node name="TracerBullet" type="Line2D"]
+z_index = -1
+width = 2.0
+default_color = Color(0.54902, 0.54902, 0.54902, 1)
+script = ExtResource("1_n5gm3")

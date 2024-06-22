@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://h0ppusug70p6"
+path="res://.godot/imported/empty-parking-garage-lighting-wind-ventilation-15-minutes-of-ambience.mp3-f2acf9bbc4a264955866d7d8f7d1e9cb.mp3str"
+
+[deps]
+
+source_file="res://assets/HOTLINE MIAMI STOLEN ASSETS/SOUNDS/Environment sounds/empty-parking-garage-lighting-wind-ventilation-15-minutes-of-ambience.mp3"
+dest_files=["res://.godot/imported/empty-parking-garage-lighting-wind-ventilation-15-minutes-of-ambience.mp3-f2acf9bbc4a264955866d7d8f7d1e9cb.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
