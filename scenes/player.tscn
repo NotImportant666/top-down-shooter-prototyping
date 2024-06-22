@@ -584,7 +584,7 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("6_olv6l")
 
 [node name="MuzzleFlashLight" type="PointLight2D" parent="MuzzleFlash"]
-position = Vector2(780, -10)
+position = Vector2(720, -10)
 scale = Vector2(10, 16.0938)
 color = Color(1, 0.992157, 0.721569, 1)
 texture = SubResource("GradientTexture2D_idykw")

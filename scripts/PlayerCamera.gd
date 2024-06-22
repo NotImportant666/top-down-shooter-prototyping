@@ -1,8 +1,9 @@
 extends Camera2D
 
 
-@export var random_strength : float = 8.0
+@export var random_strength : float = 5.0
 @export var shake_fade : float = 5.0
+@onready var player = $".."
 
 var rng = RandomNumberGenerator.new()
 
@@ -12,9 +13,17 @@ func apply_shake():
 	shake_strength = random_strength
 
 func _process(delta):
+	var extension_direction = (get_global_mouse_position() - get_parent().global_position)
+	var extension = extension_direction.normalized() * extension_direction.length() * 0.1
+	clamp(extension, extension_direction.normalized(), extension_direction.normalized() * 8)
+	
 	if shake_strength > 0:
 		shake_strength = lerpf(shake_strength,0,shake_fade*delta)
-		offset = random_offset()
+		offset = extension + random_offset()
+	else:
+		offset = extension
+	
+	
 
 
 

@@ -9,6 +9,7 @@ extends CharacterBody2D
 @onready var muzzle_flash = $MuzzleFlash as Sprite2D
 @onready var player_camera = $PlayerCamera 
 @onready var machine_gun_shoot = $MachineGunShoot as AudioStreamPlayer
+@onready var player = $"." as CharacterBody2D
 
 
 @export var tracer_bullet_scene : PackedScene
@@ -33,6 +34,10 @@ func _physics_process(delta):
 	position += velocity # updates the scene position
 	
 	move_and_slide()
+	
+	## player camera shit =====================================================================================================================================================
+	
+	
 	
 	## player body animations =====================================================================================================================================================
 	
@@ -66,7 +71,7 @@ func _physics_process(delta):
 	
 	## Miscellanious processes =====================================================================================================================================================
 	
-	ray_cast_2d.rotation = randf_range(-deg_to_rad(3), deg_to_rad(3)) # rotates the raycast by a random angle with 6 degrees, used for random bullets pread.
+	ray_cast_2d.rotation = randf_range(-deg_to_rad(2), deg_to_rad(2)) # rotates the raycast by a random angle with 4 degrees, used for random bullets pread.
 
 
 
