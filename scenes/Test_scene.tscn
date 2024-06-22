@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cbpe0epi3naqq" path="res://icon.svg" id="1_qydwx"]
 [ext_resource type="Script" path="res://scripts/Test_scene.gd" id="1_xchvf"]
-[ext_resource type="AudioStream" uid="uid://iuipd0k4ippt" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/SOUNDS/Environment sounds/creepy-ambience_C_minor.mp3" id="3_6yof0"]
+[ext_resource type="AudioStream" uid="uid://bxw6ej2v06cbv" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/SOUNDS/Environment sounds/the madness.mp3" id="2_jqlbb"]
 [ext_resource type="PackedScene" uid="uid://dofqw67b6mgvx" path="res://scenes/player.tscn" id="4_e780x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oi6vf"]
@@ -21,7 +21,6 @@ grow_vertical = 2
 color = Color(0.298039, 0.298039, 0.298039, 1)
 
 [node name="BlackFadeControl" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,8 +40,8 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_6yof0")
-volume_db = -10.0
+stream = ExtResource("2_jqlbb")
+volume_db = -5.0
 autoplay = true
 
 [node name="Player" parent="." instance=ExtResource("4_e780x")]

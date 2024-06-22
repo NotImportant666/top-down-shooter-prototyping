@@ -1,13 +1,14 @@
 extends CharacterBody2D
 
-@onready var body_sprite = $BodySprite
-@onready var leg_sprite = $LegSprite
-@onready var body_animations = $BodyAnimations
-@onready var leg_animations = $LegAnimations
-@onready var ray_cast_2d = $RayCast2D
-@onready var firing_speed_timer = $FiringSpeedTimer
-@onready var muzzle_flash = $MuzzleFlash
-@onready var player_camera = $PlayerCamera
+@onready var body_sprite = $BodySprite as AnimatedSprite2D
+@onready var leg_sprite = $LegSprite as AnimatedSprite2D
+@onready var body_animations = $BodyAnimations as AnimationPlayer
+@onready var leg_animations = $LegAnimations as AnimationPlayer
+@onready var ray_cast_2d = $RayCast2D as RayCast2D
+@onready var firing_speed_timer = $FiringSpeedTimer as Timer
+@onready var muzzle_flash = $MuzzleFlash as Sprite2D
+@onready var player_camera = $PlayerCamera 
+@onready var machine_gun_shoot = $MachineGunShoot as AudioStreamPlayer
 
 
 @export var tracer_bullet_scene : PackedScene
@@ -36,17 +37,24 @@ func _physics_process(delta):
 	## player body animations =====================================================================================================================================================
 	
 	if Input.is_action_pressed("shoot"):
-		body_animations.play("shooting")
-		player_camera.apply_shake()
+		body_animations.play("shooting") # play shoot animation
+		player_camera.apply_shake() # call shake function from player camera
+		
+		if !machine_gun_shoot.playing: # check if it's playing, if not, play the sound.
+			machine_gun_shoot.play()
+		
+		
 		if canShoot:
-			shoot()
-			muzzle_flash.visible = true
-			canShoot = false
-			firing_speed_timer.start()
+			shoot() # call shoot function
+			muzzle_flash.visible = true  # makes muzzle flash node and it's children visible
+			canShoot = false # set to false to regulate shot speed
+			firing_speed_timer.start() # shot speed timer, can be changed for different weapons
 		
 	elif direction:
+		machine_gun_shoot.stop()
 		body_animations.play("walking")
 	else:
+		machine_gun_shoot.stop()
 		body_animations.play("idle")
 	
 	## player leg animations =====================================================================================================================================================
