@@ -15,13 +15,14 @@ func apply_shake():
 func _process(delta):
 	var extension_direction = (get_global_mouse_position() - get_parent().global_position)
 	var extension = extension_direction.normalized() * extension_direction.length() * 0.1
-	clamp(extension, extension_direction.normalized(), extension_direction.normalized() * 8)
+	clamp(extension, extension_direction.normalized(), extension_direction.normalized() * 10)
 	
 	if shake_strength > 0:
 		shake_strength = lerpf(shake_strength,0,shake_fade*delta)
 		offset = extension + random_offset()
-	else:
-		offset = extension
+	elif shake_strength < 2:
+		offset = lerp(offset, extension, delta * 8)
+		
 	
 	
 

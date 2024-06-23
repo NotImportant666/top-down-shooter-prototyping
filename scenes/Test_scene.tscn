@@ -1,9 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://cal4ssq45r62t"]
+[gd_scene load_steps=8 format=3 uid="uid://cal4ssq45r62t"]
 
 [ext_resource type="Texture2D" uid="uid://cbpe0epi3naqq" path="res://icon.svg" id="1_qydwx"]
 [ext_resource type="Script" path="res://scripts/Test_scene.gd" id="1_xchvf"]
 [ext_resource type="AudioStream" uid="uid://bxw6ej2v06cbv" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/SOUNDS/Environment sounds/the madness.mp3" id="2_jqlbb"]
 [ext_resource type="PackedScene" uid="uid://dofqw67b6mgvx" path="res://scenes/player.tscn" id="4_e780x"]
+[ext_resource type="PackedScene" uid="uid://b1q12o8c4xa7c" path="res://scenes/enemy.tscn" id="5_njk1v"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_t4olc"]
+vertices = PackedVector2Array(961, 294, 853, 294, 712, 290, 712, 186, 1113, 32, 1115, 603, 961, 398, 47, 602, 853, 398, 588, 383, 480, 383, 315, 293, 315, 189, 480, 279, 207, 293, 50, 36, 207, 189, 257, 36, 604, 186, 604, 290, 588, 279)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(4, 5, 6, 0), PackedInt32Array(6, 5, 7, 8), PackedInt32Array(8, 7, 9, 1), PackedInt32Array(10, 9, 7), PackedInt32Array(11, 12, 13, 10), PackedInt32Array(11, 10, 7, 14), PackedInt32Array(14, 7, 15, 16), PackedInt32Array(16, 15, 17, 12), PackedInt32Array(12, 17, 4, 18), PackedInt32Array(2, 1, 9, 19), PackedInt32Array(19, 9, 20, 18), PackedInt32Array(18, 20, 13, 12), PackedInt32Array(4, 3, 18)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(21, 7, 17, 632, 1146, 634, 1143, 2, 257.484, 5.94615)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 30.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oi6vf"]
 size = Vector2(126, 128)
@@ -16,11 +24,14 @@ z_index = -5
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -9.0
+offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.298039, 0.298039, 0.298039, 1)
 
 [node name="BlackFadeControl" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -45,66 +56,122 @@ volume_db = -5.0
 autoplay = true
 
 [node name="Player" parent="." instance=ExtResource("4_e780x")]
-position = Vector2(421, 336)
+position = Vector2(900, 222)
 
-[node name="Obstacles" type="Node" parent="."]
+[node name="Enemy" parent="." instance=ExtResource("5_njk1v")]
+position = Vector2(384, 218)
 
-[node name="wall" type="Sprite2D" parent="Obstacles"]
+[node name="Enemy2" parent="." instance=ExtResource("5_njk1v")]
+position = Vector2(305, 320)
+
+[node name="Enemy3" parent="." instance=ExtResource("5_njk1v")]
+position = Vector2(188, 285)
+
+[node name="Enemy4" parent="." instance=ExtResource("5_njk1v")]
+position = Vector2(206, 112)
+
+[node name="Enemy5" parent="." instance=ExtResource("5_njk1v")]
+position = Vector2(569, 259)
+
+[node name="CrowdEscapePath" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_t4olc")
+
+[node name="Obstacles" type="Node" parent="CrowdEscapePath"]
+
+[node name="wall" type="Sprite2D" parent="CrowdEscapePath/Obstacles"]
 position = Vector2(577.5, -13.5)
 scale = Vector2(9.24219, 0.210938)
 texture = ExtResource("1_qydwx")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Obstacles/wall"]
+[node name="StaticBody2D" type="StaticBody2D" parent="CrowdEscapePath/Obstacles/wall"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/wall/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CrowdEscapePath/Obstacles/wall/StaticBody2D"]
 shape = SubResource("RectangleShape2D_oi6vf")
 
-[node name="pillar" type="Sprite2D" parent="Obstacles"]
+[node name="pillar" type="Sprite2D" parent="CrowdEscapePath/Obstacles"]
 position = Vector2(261, 241)
 scale = Vector2(0.386718, 0.347656)
 texture = ExtResource("1_qydwx")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Obstacles/pillar"]
+[node name="StaticBody2D" type="StaticBody2D" parent="CrowdEscapePath/Obstacles/pillar"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/pillar/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CrowdEscapePath/Obstacles/pillar/StaticBody2D"]
 shape = SubResource("RectangleShape2D_oi6vf")
 
-[node name="pillar2" type="Sprite2D" parent="Obstacles"]
+[node name="pillar3" type="Sprite2D" parent="CrowdEscapePath/Obstacles"]
+position = Vector2(534, 331)
+scale = Vector2(0.386718, 0.347656)
+texture = ExtResource("1_qydwx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CrowdEscapePath/Obstacles/pillar3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CrowdEscapePath/Obstacles/pillar3/StaticBody2D"]
+shape = SubResource("RectangleShape2D_oi6vf")
+
+[node name="pillar4" type="Sprite2D" parent="CrowdEscapePath/Obstacles"]
+position = Vector2(907, 346)
+scale = Vector2(0.386718, 0.347656)
+texture = ExtResource("1_qydwx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CrowdEscapePath/Obstacles/pillar4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CrowdEscapePath/Obstacles/pillar4/StaticBody2D"]
+shape = SubResource("RectangleShape2D_oi6vf")
+
+[node name="door" type="Sprite2D" parent="CrowdEscapePath/Obstacles"]
+self_modulate = Color(1, 0.407843, 1, 1)
+position = Vector2(996, 353)
+scale = Vector2(0.386718, 0.347656)
+texture = ExtResource("1_qydwx")
+
+[node name="Label" type="Label" parent="CrowdEscapePath/Obstacles/door"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = -64.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "exit door"
+
+[node name="pillar2" type="Sprite2D" parent="CrowdEscapePath/Obstacles"]
 position = Vector2(658, 238)
 scale = Vector2(0.386718, 0.347656)
 texture = ExtResource("1_qydwx")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Obstacles/pillar2"]
+[node name="StaticBody2D" type="StaticBody2D" parent="CrowdEscapePath/Obstacles/pillar2"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/pillar2/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CrowdEscapePath/Obstacles/pillar2/StaticBody2D"]
 shape = SubResource("RectangleShape2D_oi6vf")
 
-[node name="wall2" type="Sprite2D" parent="Obstacles"]
+[node name="wall2" type="Sprite2D" parent="CrowdEscapePath/Obstacles"]
 position = Vector2(574, 656)
 scale = Vector2(9.24219, 0.210938)
 texture = ExtResource("1_qydwx")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Obstacles/wall2"]
+[node name="StaticBody2D" type="StaticBody2D" parent="CrowdEscapePath/Obstacles/wall2"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/wall2/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CrowdEscapePath/Obstacles/wall2/StaticBody2D"]
 shape = SubResource("RectangleShape2D_oi6vf")
 
-[node name="wall3" type="Sprite2D" parent="Obstacles"]
+[node name="wall3" type="Sprite2D" parent="CrowdEscapePath/Obstacles"]
 position = Vector2(-1, 330.125)
 scale = Vector2(0.13086, 5.35742)
 texture = ExtResource("1_qydwx")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Obstacles/wall3"]
+[node name="StaticBody2D" type="StaticBody2D" parent="CrowdEscapePath/Obstacles/wall3"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/wall3/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CrowdEscapePath/Obstacles/wall3/StaticBody2D"]
 shape = SubResource("RectangleShape2D_oi6vf")
 
-[node name="wall4" type="Sprite2D" parent="Obstacles"]
+[node name="wall4" type="Sprite2D" parent="CrowdEscapePath/Obstacles"]
 position = Vector2(1167, 319)
 scale = Vector2(0.13086, 5.35742)
 texture = ExtResource("1_qydwx")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Obstacles/wall4"]
+[node name="StaticBody2D" type="StaticBody2D" parent="CrowdEscapePath/Obstacles/wall4"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/wall4/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CrowdEscapePath/Obstacles/wall4/StaticBody2D"]
 shape = SubResource("RectangleShape2D_oi6vf")

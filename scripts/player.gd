@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 @onready var body_sprite = $BodySprite as AnimatedSprite2D
 @onready var leg_sprite = $LegSprite as AnimatedSprite2D
-@onready var body_animations = $BodyAnimations as AnimationPlayer
-@onready var leg_animations = $LegAnimations as AnimationPlayer
+@onready var body_animations = $BodyAnimations 
+@onready var leg_animations = $LegAnimations 
 @onready var ray_cast_2d = $RayCast2D as RayCast2D
 @onready var firing_speed_timer = $FiringSpeedTimer as Timer
 @onready var muzzle_flash = $MuzzleFlash as Sprite2D
@@ -19,6 +19,11 @@ var speed = 200
 
 var canShoot = true
 
+
+func _ready():
+	body_animations.play("RESET")
+	leg_animations.play("RESET")
+	
 func _physics_process(delta):
 	
 	## player movement =======================================================================================================================================================
@@ -27,11 +32,11 @@ func _physics_process(delta):
 	
 	look_at(get_global_mouse_position()) # makes scene look at the mouse
 	
-	velocity = direction * speed * delta # velocity is direction times speed, need this value for leg sprite rotation.
+	velocity = direction * speed # velocity is direction times speed, need this value for leg sprite rotation.
 	
 	leg_sprite.global_rotation = velocity.angle() # need to add specific global position so the legs don't rotate with the mouse
 	
-	position += velocity # updates the scene position
+	
 	
 	move_and_slide()
 	
@@ -85,6 +90,8 @@ func shoot():
 		var collision_point = ray_cast_2d.get_collision_point()
 		draw_tracer(collision_point)
 		
+		if ray_cast_2d.get_collider().has_method("kill"):
+			ray_cast_2d.get_collider().kill()
 
 func draw_tracer(point):
 		var tracer_bullet_instance = tracer_bullet_scene.instantiate()
