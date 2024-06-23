@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cal4ssq45r62t"]
+[gd_scene load_steps=9 format=3 uid="uid://cal4ssq45r62t"]
 
 [ext_resource type="Texture2D" uid="uid://cbpe0epi3naqq" path="res://icon.svg" id="1_qydwx"]
 [ext_resource type="Script" path="res://scripts/Test_scene.gd" id="1_xchvf"]
@@ -16,19 +16,24 @@ agent_radius = 30.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oi6vf"]
 size = Vector2(126, 128)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_j4nka"]
+polygon = PackedVector2Array(237, 218, 238, 262, 286, 263, 286, 217)
+
 [node name="TestScene" type="Node"]
 script = ExtResource("1_xchvf")
 
-[node name="floor" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
 z_index = -5
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -9.0
-offset_bottom = -9.0
+offset_left = -88.0
+offset_top = -71.0
+offset_right = 159.0
+offset_bottom = 76.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.298039, 0.298039, 0.298039, 1)
+color = Color(0.32549, 0.32549, 0.32549, 1)
 
 [node name="BlackFadeControl" type="Control" parent="."]
 visible = false
@@ -56,24 +61,48 @@ volume_db = -5.0
 autoplay = true
 
 [node name="Player" parent="." instance=ExtResource("4_e780x")]
-position = Vector2(900, 222)
+position = Vector2(407, 589)
 
-[node name="Enemy" parent="." instance=ExtResource("5_njk1v")]
+[node name="enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="enemies" instance=ExtResource("5_njk1v")]
 position = Vector2(384, 218)
 
-[node name="Enemy2" parent="." instance=ExtResource("5_njk1v")]
+[node name="Enemy2" parent="enemies" instance=ExtResource("5_njk1v")]
 position = Vector2(305, 320)
 
-[node name="Enemy3" parent="." instance=ExtResource("5_njk1v")]
+[node name="Enemy3" parent="enemies" instance=ExtResource("5_njk1v")]
 position = Vector2(188, 285)
 
-[node name="Enemy4" parent="." instance=ExtResource("5_njk1v")]
+[node name="Enemy4" parent="enemies" instance=ExtResource("5_njk1v")]
 position = Vector2(206, 112)
 
-[node name="Enemy5" parent="." instance=ExtResource("5_njk1v")]
+[node name="Enemy5" parent="enemies" instance=ExtResource("5_njk1v")]
 position = Vector2(569, 259)
 
+[node name="Enemy6" parent="enemies" instance=ExtResource("5_njk1v")]
+position = Vector2(465, 331)
+
+[node name="Enemy7" parent="enemies" instance=ExtResource("5_njk1v")]
+position = Vector2(542, 167)
+
+[node name="Enemy8" parent="enemies" instance=ExtResource("5_njk1v")]
+position = Vector2(464, 119)
+
+[node name="Enemy9" parent="enemies" instance=ExtResource("5_njk1v")]
+position = Vector2(351, 127)
+
+[node name="Enemy10" parent="enemies" instance=ExtResource("5_njk1v")]
+position = Vector2(702, 116)
+
+[node name="Enemy11" parent="enemies" instance=ExtResource("5_njk1v")]
+position = Vector2(607, 81)
+
+[node name="Enemy12" parent="enemies" instance=ExtResource("5_njk1v")]
+position = Vector2(633, 375)
+
 [node name="CrowdEscapePath" type="NavigationRegion2D" parent="."]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_t4olc")
 
 [node name="Obstacles" type="Node" parent="CrowdEscapePath"]
@@ -98,6 +127,11 @@ texture = ExtResource("1_qydwx")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CrowdEscapePath/Obstacles/pillar/StaticBody2D"]
 shape = SubResource("RectangleShape2D_oi6vf")
 
+[node name="LightOccluder2D" type="LightOccluder2D" parent="CrowdEscapePath/Obstacles/pillar"]
+position = Vector2(-674.91, -693.214)
+scale = Vector2(2.58586, 2.87641)
+occluder = SubResource("OccluderPolygon2D_j4nka")
+
 [node name="pillar3" type="Sprite2D" parent="CrowdEscapePath/Obstacles"]
 position = Vector2(534, 331)
 scale = Vector2(0.386718, 0.347656)
@@ -108,6 +142,11 @@ texture = ExtResource("1_qydwx")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CrowdEscapePath/Obstacles/pillar3/StaticBody2D"]
 shape = SubResource("RectangleShape2D_oi6vf")
 
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="CrowdEscapePath/Obstacles/pillar3"]
+position = Vector2(-674.91, -687.461)
+scale = Vector2(2.58586, 2.87641)
+occluder = SubResource("OccluderPolygon2D_j4nka")
+
 [node name="pillar4" type="Sprite2D" parent="CrowdEscapePath/Obstacles"]
 position = Vector2(907, 346)
 scale = Vector2(0.386718, 0.347656)
@@ -117,6 +156,11 @@ texture = ExtResource("1_qydwx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CrowdEscapePath/Obstacles/pillar4/StaticBody2D"]
 shape = SubResource("RectangleShape2D_oi6vf")
+
+[node name="LightOccluder2D4" type="LightOccluder2D" parent="CrowdEscapePath/Obstacles/pillar4"]
+position = Vector2(-674.91, -690.338)
+scale = Vector2(2.58586, 2.87641)
+occluder = SubResource("OccluderPolygon2D_j4nka")
 
 [node name="door" type="Sprite2D" parent="CrowdEscapePath/Obstacles"]
 self_modulate = Color(1, 0.407843, 1, 1)
@@ -145,6 +189,11 @@ texture = ExtResource("1_qydwx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CrowdEscapePath/Obstacles/pillar2/StaticBody2D"]
 shape = SubResource("RectangleShape2D_oi6vf")
+
+[node name="LightOccluder2D3" type="LightOccluder2D" parent="CrowdEscapePath/Obstacles/pillar2"]
+position = Vector2(-677.496, -690.338)
+scale = Vector2(2.58586, 2.87641)
+occluder = SubResource("OccluderPolygon2D_j4nka")
 
 [node name="wall2" type="Sprite2D" parent="CrowdEscapePath/Obstacles"]
 position = Vector2(574, 656)
@@ -175,3 +224,5 @@ texture = ExtResource("1_qydwx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CrowdEscapePath/Obstacles/wall4/StaticBody2D"]
 shape = SubResource("RectangleShape2D_oi6vf")
+
+[connection signal="shots_fired" from="Player" to="." method="_on_player_shots_fired"]

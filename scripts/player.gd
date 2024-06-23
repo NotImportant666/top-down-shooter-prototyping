@@ -10,33 +10,33 @@ extends CharacterBody2D
 @onready var player_camera = $PlayerCamera 
 @onready var machine_gun_shoot = $MachineGunShoot as AudioStreamPlayer
 @onready var player = $"." as CharacterBody2D
+@onready var test_cutscene_animation = $CutsceneAnimations/TestCutsceneAnimation
 
 
 @export var tracer_bullet_scene : PackedScene
-
-
-var speed = 200
+@export var direction : Vector2
+@export var speed = 200
 
 var canShoot = true
+var cutsceneIsPlaying = true
+
+signal shots_fired
 
 
 func _ready():
-	body_animations.play("RESET")
-	leg_animations.play("RESET")
-	
+	pass
 func _physics_process(delta):
 	
 	## player movement =======================================================================================================================================================
-	
-	var direction = Input.get_vector("left","right","up","down") # create vector based on input
-	
-	look_at(get_global_mouse_position()) # makes scene look at the mouse
+	if !cutsceneIsPlaying:
+		direction = Input.get_vector("left","right","up","down") # create vector based on input
+		look_at(get_global_mouse_position()) # makes scene look at the mouse
+	else:
+		rotation = direction.angle()
 	
 	velocity = direction * speed # velocity is direction times speed, need this value for leg sprite rotation.
 	
 	leg_sprite.global_rotation = velocity.angle() # need to add specific global position so the legs don't rotate with the mouse
-	
-	
 	
 	move_and_slide()
 	
@@ -77,6 +77,8 @@ func _physics_process(delta):
 	## Miscellanious processes =====================================================================================================================================================
 	
 	ray_cast_2d.rotation = randf_range(-deg_to_rad(2), deg_to_rad(2)) # rotates the raycast by a random angle with 4 degrees, used for random bullets pread.
+	
+	
 
 
 
@@ -92,9 +94,22 @@ func shoot():
 		
 		if ray_cast_2d.get_collider().has_method("kill"):
 			ray_cast_2d.get_collider().kill()
+	
+	shots_fired.emit()
 
 func draw_tracer(point):
 		var tracer_bullet_instance = tracer_bullet_scene.instantiate()
 		get_tree().root.add_child(tracer_bullet_instance)
 		tracer_bullet_instance.add_point(ray_cast_2d.global_position)
 		tracer_bullet_instance.add_point(point)
+
+
+
+func TestCutscene():
+	cutsceneIsPlaying = true
+	look_at(direction)
+	test_cutscene_animation.play("walk up talk")
+	await test_cutscene_animation.animation_finished
+	cutsceneIsPlaying = false
+	speed = 200
+	

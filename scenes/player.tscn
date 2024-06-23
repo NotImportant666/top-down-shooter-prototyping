@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://dofqw67b6mgvx"]
+[gd_scene load_steps=52 format=3 uid="uid://dofqw67b6mgvx"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_yhf07"]
 [ext_resource type="Texture2D" uid="uid://di0yskydh6881" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/characters/PigLegs.png" id="1_yvhfw"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c8hlr8fvdkpyf" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/characters/PigGunWalk.png" id="3_dr5pe"]
 [ext_resource type="Script" path="res://scripts/PlayerCamera.gd" id="6_4cn7m"]
 [ext_resource type="Texture2D" uid="uid://dmfiw1jwdhl6" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/muzzle flash/pngtree-simple-muzzle-flash-vector-png-png-image_5797978.png" id="6_olv6l"]
+[ext_resource type="Texture2D" uid="uid://4e7k767ca4so" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/gradients/Circular 7 - 128x128.png" id="8_fcrwt"]
 [ext_resource type="AudioStream" uid="uid://crkdkbklkj72t" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/SOUNDS/player sounds/clean-machine-gun-burst-98224.mp3" id="8_sbgei"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0v3vm"]
@@ -527,21 +528,67 @@ _data = {
 "walking": SubResource("Animation_epu7y")
 }
 
-[sub_resource type="Gradient" id="Gradient_xhd86"]
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+[sub_resource type="Animation" id="Animation_iiaa6"]
+resource_name = "walk up talk"
+length = 2.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../PlayerCamera:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(4, 4), Vector2(2, 2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:direction")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:speed")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [100]
+}
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_idykw"]
-gradient = SubResource("Gradient_xhd86")
-width = 196
-use_hdr = true
-fill = 1
-fill_from = Vector2(0.414948, 0.473582)
-fill_to = Vector2(0, 0.484536)
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qm40j"]
+_data = {
+"walk up talk": SubResource("Animation_iiaa6")
+}
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_yhf07")
 tracer_bullet_scene = ExtResource("2_npqes")
+direction = Vector2(0, -1)
+speed = 100
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+z_index = -3
+offset_left = -187.0
+offset_top = -145.0
+offset_right = 301.0
+offset_bottom = 164.0
+color = Color(0.290196, 0.290196, 0.290196, 1)
 
 [node name="LegSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wnkvm")
@@ -566,7 +613,7 @@ libraries = {
 }
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+zoom = Vector2(4, 4)
 script = ExtResource("6_4cn7m")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
@@ -584,13 +631,24 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("6_olv6l")
 
 [node name="MuzzleFlashLight" type="PointLight2D" parent="MuzzleFlash"]
-position = Vector2(720, -10)
-scale = Vector2(10, 16.0938)
-color = Color(1, 0.992157, 0.721569, 1)
-texture = SubResource("GradientTexture2D_idykw")
+position = Vector2(-330, -10)
+rotation = 1.5708
+scale = Vector2(1.53845, 3.84783)
+color = Color(1, 0.992157, 0.709804, 1)
+shadow_enabled = true
+texture = ExtResource("8_fcrwt")
+offset = Vector2(0, -390)
+texture_scale = 5.0
 
 [node name="MachineGunShoot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_sbgei")
 bus = &"SFX"
+
+[node name="CutsceneAnimations" type="Node" parent="."]
+
+[node name="TestCutsceneAnimation" type="AnimationPlayer" parent="CutsceneAnimations"]
+libraries = {
+"": SubResource("AnimationLibrary_qm40j")
+}
 
 [connection signal="timeout" from="FiringSpeedTimer" to="." method="_on_firing_speed_timer_timeout"]
