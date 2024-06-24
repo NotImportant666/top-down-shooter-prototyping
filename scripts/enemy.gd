@@ -2,12 +2,18 @@ extends CharacterBody2D
 class_name Enemy
 
 @export var blood_scene : PackedScene
+@export var sprites : TextureResource = null
+
 
 var speed = 200
 
 @onready var animation_player = $AnimationPlayer
 @onready var navigation_agent_2d = $NavigationAgent2D
 @onready var player : CharacterBody2D = get_tree().get_first_node_in_group("player")
+@onready var leg_walk_sprite_strip = $LegWalkSpriteStrip
+@onready var body_walk_sprite_strip = $BodyWalkSpriteStrip
+@onready var dead_sprite = $DeadSprite
+
 
 var dead
 var target_reached
@@ -15,6 +21,10 @@ var target_reached
  
 
 func _ready():
+	leg_walk_sprite_strip.texture = sprites.Leg_texture
+	body_walk_sprite_strip.texture = sprites.Body_texture
+	dead_sprite.texture = sprites.Dead_texture
+	
 	animation_player.play("RESET")
 	await get_tree().physics_frame
 	call_deferred("actor_setup")

@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@onready var body_sprite = $BodySprite as AnimatedSprite2D
-@onready var leg_sprite = $LegSprite as AnimatedSprite2D
+@onready var body_walk_sprite_strip = $BodyWalkSpriteStrip
+@onready var leg_sprite_strip = $LegSpriteStrip
 @onready var body_animations = $BodyAnimations 
 @onready var leg_animations = $LegAnimations 
 @onready var ray_cast_2d = $RayCast2D as RayCast2D
@@ -36,7 +36,7 @@ func _physics_process(delta):
 	
 	velocity = direction * speed # velocity is direction times speed, need this value for leg sprite rotation.
 	
-	leg_sprite.global_rotation = velocity.angle() # need to add specific global position so the legs don't rotate with the mouse
+	leg_sprite_strip.global_rotation = velocity.angle() # need to add specific global position so the legs don't rotate with the mouse
 	
 	move_and_slide()
 	

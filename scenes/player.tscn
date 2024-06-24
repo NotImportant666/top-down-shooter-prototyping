@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://dofqw67b6mgvx"]
+[gd_scene load_steps=22 format=3 uid="uid://dofqw67b6mgvx"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_yhf07"]
 [ext_resource type="Texture2D" uid="uid://di0yskydh6881" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/characters/PigLegs.png" id="1_yvhfw"]
@@ -10,251 +10,12 @@
 [ext_resource type="Texture2D" uid="uid://4e7k767ca4so" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/gradients/Circular 7 - 128x128.png" id="8_fcrwt"]
 [ext_resource type="AudioStream" uid="uid://crkdkbklkj72t" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/SOUNDS/player sounds/clean-machine-gun-burst-98224.mp3" id="8_sbgei"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0v3vm"]
-atlas = ExtResource("1_yvhfw")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3ittd"]
-atlas = ExtResource("1_yvhfw")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_slcj2"]
-atlas = ExtResource("1_yvhfw")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ki53j"]
-atlas = ExtResource("1_yvhfw")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_twfe7"]
-atlas = ExtResource("1_yvhfw")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lbrag"]
-atlas = ExtResource("1_yvhfw")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vy6xm"]
-atlas = ExtResource("1_yvhfw")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nj6nf"]
-atlas = ExtResource("1_yvhfw")
-region = Rect2(192, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fb33b"]
-atlas = ExtResource("1_yvhfw")
-region = Rect2(224, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hfkxh"]
-atlas = ExtResource("1_yvhfw")
-region = Rect2(256, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_avrmn"]
-atlas = ExtResource("1_yvhfw")
-region = Rect2(288, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4yrix"]
-atlas = ExtResource("1_yvhfw")
-region = Rect2(320, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e4g7v"]
-atlas = ExtResource("1_yvhfw")
-region = Rect2(352, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_65oc0"]
-atlas = ExtResource("1_yvhfw")
-region = Rect2(384, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bsowc"]
-atlas = ExtResource("1_yvhfw")
-region = Rect2(416, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vovtl"]
-atlas = ExtResource("1_yvhfw")
-region = Rect2(448, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iull8"]
-atlas = ExtResource("1_yvhfw")
-region = Rect2(480, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_wnkvm"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0v3vm")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3ittd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_slcj2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ki53j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_twfe7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lbrag")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vy6xm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nj6nf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fb33b")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hfkxh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_avrmn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4yrix")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e4g7v")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_65oc0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bsowc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vovtl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_iull8")
-}],
-"loop": true,
-"name": &"walking",
-"speed": 16.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uduv1"]
-atlas = ExtResource("2_ob66f")
-region = Rect2(180, 0, 60, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_poea4"]
-atlas = ExtResource("2_ob66f")
-region = Rect2(120, 0, 60, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ksdig"]
-atlas = ExtResource("3_dr5pe")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bkxek"]
-atlas = ExtResource("3_dr5pe")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ogr0g"]
-atlas = ExtResource("3_dr5pe")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bgjpj"]
-atlas = ExtResource("3_dr5pe")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6yvoa"]
-atlas = ExtResource("3_dr5pe")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hyyj8"]
-atlas = ExtResource("3_dr5pe")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yxvva"]
-atlas = ExtResource("3_dr5pe")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r7ax3"]
-atlas = ExtResource("3_dr5pe")
-region = Rect2(192, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h1y2w"]
-atlas = ExtResource("3_dr5pe")
-region = Rect2(224, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_l1cvv"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uduv1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_poea4")
-}],
-"loop": true,
-"name": &"Shooting",
-"speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ksdig")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bkxek")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ogr0g")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bgjpj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6yvoa")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hyyj8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yxvva")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_r7ax3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h1y2w")
-}],
-"loop": true,
-"name": &"walking",
-"speed": 8.0
-}]
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i2a2h"]
 radius = 7.0
 height = 24.0
 
 [sub_resource type="Animation" id="Animation_0u2ex"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LegSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
 
 [sub_resource type="Animation" id="Animation_4mo80"]
 resource_name = "idle"
@@ -263,22 +24,10 @@ step = 0.125
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("LegSprite:animation")
+tracks/0/path = NodePath("LegSpriteStrip:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("LegSprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -293,22 +42,10 @@ step = 0.0625
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("LegSprite:animation")
+tracks/0/path = NodePath("LegSpriteStrip:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"walking"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("LegSprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5, 0.5625, 0.625, 0.6875, 0.75, 0.8125, 0.875, 0.9375),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
@@ -327,38 +64,26 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BodySprite:animation")
+tracks/0/path = NodePath("BodyWalkSpriteStrip:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"walking"]
+"values": [0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BodySprite:frame")
+tracks/1/path = NodePath("BodyShootSpriteStrip:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("BodySprite:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
+"values": [3]
 }
 
 [sub_resource type="Animation" id="Animation_yfvsb"]
@@ -367,19 +92,19 @@ step = 0.125
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BodySprite:animation")
+tracks/0/path = NodePath("MuzzleFlash:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"idle"]
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BodySprite:frame")
+tracks/1/path = NodePath("BodyWalkSpriteStrip:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -391,7 +116,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("BodySprite:position")
+tracks/2/path = NodePath("BodyWalkSpriteStrip:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -403,7 +128,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("MuzzleFlash:visible")
+tracks/3/path = NodePath("BodyShootSpriteStrip:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -411,6 +136,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BodyWalkSpriteStrip:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_g28d2"]
@@ -421,50 +158,62 @@ step = 0.0625
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BodySprite:animation")
+tracks/0/path = NodePath("MuzzleFlash:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875),
+"transitions": PackedFloat32Array(1, 1.07177, 1, 1.07177),
 "update": 1,
-"values": [&"Shooting"]
+"values": [true, false, true, false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BodySprite:frame")
+tracks/1/path = NodePath("BodyWalkSpriteStrip:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.125),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, 1]
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("BodySprite:position")
+tracks/2/path = NodePath("BodyShootSpriteStrip:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(14, 0)]
+"update": 1,
+"values": [true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("MuzzleFlash:visible")
+tracks/3/path = NodePath("BodyShootSpriteStrip:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875),
-"transitions": PackedFloat32Array(1, 1.07177, 1, 1.07177),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(14, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BodyShootSpriteStrip:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false, true, false]
+"values": [3, 2]
 }
 
 [sub_resource type="Animation" id="Animation_epu7y"]
@@ -474,43 +223,43 @@ step = 0.125
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BodySprite:animation")
+tracks/0/path = NodePath("BodyWalkSpriteStrip:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"walking"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BodySprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("BodySprite:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BodyWalkSpriteStrip:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MuzzleFlash:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("MuzzleFlash:visible")
+tracks/3/path = NodePath("BodyShootSpriteStrip:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -518,6 +267,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BodyWalkSpriteStrip:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v4i1l"]
@@ -590,13 +351,21 @@ offset_right = 301.0
 offset_bottom = 164.0
 color = Color(0.290196, 0.290196, 0.290196, 1)
 
-[node name="LegSprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_wnkvm")
-animation = &"walking"
+[node name="LegSpriteStrip" type="Sprite2D" parent="."]
+texture = ExtResource("1_yvhfw")
+hframes = 16
+frame = 3
 
-[node name="BodySprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_l1cvv")
-animation = &"walking"
+[node name="BodyWalkSpriteStrip" type="Sprite2D" parent="."]
+texture = ExtResource("3_dr5pe")
+hframes = 8
+
+[node name="BodyShootSpriteStrip" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(14, 0)
+texture = ExtResource("2_ob66f")
+hframes = 4
+frame = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 0)
@@ -619,22 +388,24 @@ script = ExtResource("6_4cn7m")
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(11, 6)
 target_position = Vector2(8000, 0)
-collision_mask = 3
+collision_mask = 5
 
 [node name="FiringSpeedTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 
 [node name="MuzzleFlash" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(35, 7)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("6_olv6l")
 
 [node name="MuzzleFlashLight" type="PointLight2D" parent="MuzzleFlash"]
-position = Vector2(-330, -10)
+position = Vector2(-280, -10)
 rotation = 1.5708
-scale = Vector2(1.53845, 3.84783)
+scale = Vector2(1.53845, 2.92894)
 color = Color(1, 0.992157, 0.709804, 1)
+energy = 2.0
 shadow_enabled = true
 texture = ExtResource("8_fcrwt")
 offset = Vector2(0, -390)
