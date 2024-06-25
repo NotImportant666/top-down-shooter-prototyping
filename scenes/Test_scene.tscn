@@ -220,7 +220,7 @@ texture = ExtResource("1_qydwx")
 shape = SubResource("RectangleShape2D_oi6vf")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." groups=["CanvasModulate"]]
-color = Color(0.0156863, 0.0117647, 0.282353, 1)
+color = Color(0.0196078, 0.0156863, 0.129412, 1)
 
 [node name="lights" type="Node2D" parent="."]
 position = Vector2(598, 338)

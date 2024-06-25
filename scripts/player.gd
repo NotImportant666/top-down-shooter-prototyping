@@ -13,8 +13,7 @@ extends CharacterBody2D
 @onready var test_cutscene_animation = $CutsceneAnimations/TestCutsceneAnimation
 @onready var muzzle_flash_light = $MuzzleFlash/MuzzleFlashLight
 @onready var muzzle_flash_shadow = $MuzzleFlash/MuzzleFlashShadow
-@onready var light_detection = $SubViewport/LightDetection
-@onready var sub_viewport = $SubViewport
+
 
 
 

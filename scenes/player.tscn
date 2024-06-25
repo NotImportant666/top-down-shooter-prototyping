@@ -450,10 +450,4 @@ libraries = {
 "": SubResource("AnimationLibrary_qm40j")
 }
 
-[node name="SubViewport" type="SubViewport" parent="."]
-
-[node name="LightDetection" type="Node2D" parent="SubViewport"]
-
-[node name="Camera2D" type="Camera2D" parent="SubViewport/LightDetection"]
-
 [connection signal="timeout" from="FiringSpeedTimer" to="." method="_on_firing_speed_timer_timeout"]
