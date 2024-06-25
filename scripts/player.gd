@@ -11,9 +11,23 @@ extends CharacterBody2D
 @onready var machine_gun_shoot = $MachineGunShoot as AudioStreamPlayer
 @onready var player = $"." as CharacterBody2D
 @onready var test_cutscene_animation = $CutsceneAnimations/TestCutsceneAnimation
+@onready var muzzle_flash_light = $MuzzleFlash/MuzzleFlashLight
+@onready var muzzle_flash_shadow = $MuzzleFlash/MuzzleFlashShadow
+@onready var light_detection = $SubViewport/LightDetection
+@onready var sub_viewport = $SubViewport
+
+
+
+
+
+
+
+
+
 
 
 @export var tracer_bullet_scene : PackedScene
+@export var gun_smoke_sprite_scene : PackedScene
 @export var direction : Vector2
 @export var speed = 200
 
@@ -21,6 +35,7 @@ var canShoot = true
 var cutsceneIsPlaying = true
 
 signal shots_fired
+
 
 
 func _ready():
@@ -79,6 +94,10 @@ func _physics_process(delta):
 	ray_cast_2d.rotation = randf_range(-deg_to_rad(2), deg_to_rad(2)) # rotates the raycast by a random angle with 4 degrees, used for random bullets pread.
 	
 	
+	
+	## Light Detection =====================================================================================================================================================
+	
+
 
 
 
@@ -91,6 +110,7 @@ func shoot():
 	if ray_cast_2d.is_colliding():
 		var collision_point = ray_cast_2d.get_collision_point()
 		draw_tracer(collision_point)
+		instantiate_smoke(muzzle_flash.global_position)
 		
 		if ray_cast_2d.get_collider().has_method("kill"):
 			ray_cast_2d.get_collider().kill()
@@ -100,8 +120,16 @@ func shoot():
 func draw_tracer(point):
 		var tracer_bullet_instance = tracer_bullet_scene.instantiate()
 		get_tree().root.add_child(tracer_bullet_instance)
-		tracer_bullet_instance.add_point(ray_cast_2d.global_position)
+		tracer_bullet_instance.add_point(muzzle_flash.global_position)
 		tracer_bullet_instance.add_point(point)
+
+func instantiate_smoke(barrel_position):
+	var gun_smoke_sprite_instance = gun_smoke_sprite_scene.instantiate()
+	get_tree().root.add_child(gun_smoke_sprite_instance)
+	gun_smoke_sprite_instance.global_position = barrel_position
+	gun_smoke_sprite_instance.rotation = global_rotation - deg_to_rad(90)
+
+
 
 
 
