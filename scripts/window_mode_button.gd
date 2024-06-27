@@ -13,11 +13,11 @@ const WINDOW_MODE_ARRAY : Array[String] = [
 func _ready():
 	add_window_mode_items()
 
-func add_window_mode_items():
+func add_window_mode_items() -> void:
 	for window_mode in WINDOW_MODE_ARRAY:
 		option_button.add_item(window_mode)
 
-func _on_option_button_item_selected(index : int):
+func _on_option_button_item_selected(index : int) -> void:
 	match index:
 		0: # fullscreen
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)

@@ -3,9 +3,11 @@ class_name Enemy
 
 @export var blood_scene : PackedScene
 @export var sprites : TextureResource = null
+@export var dead : bool = false
+@export var knocked_down : bool = false 
 
+var speed : float = 200
 
-var speed = 200
 
 @onready var animation_player = $AnimationPlayer
 @onready var navigation_agent_2d = $NavigationAgent2D
@@ -15,62 +17,90 @@ var speed = 200
 @onready var dead_sprite = $DeadSprite
 
 
-var dead
-var target_reached
+
+
+var target_reached : bool
+
+
 
  
 
-func _ready():
-	leg_walk_sprite_strip.texture = sprites.Leg_texture
-	body_walk_sprite_strip.texture = sprites.Body_texture
-	dead_sprite.texture = sprites.Dead_texture
+func _ready(): # called when the scene opens
+	leg_walk_sprite_strip.texture = sprites.Leg_texture # set leg animations to whatever resource the scene currently has
+	body_walk_sprite_strip.texture = sprites.Body_texture # set body animations to whatever resource the scene currently has
+	dead_sprite.texture = sprites.Dead_texture # set dead texture to whatever resource the scene has
 	
-	animation_player.play("RESET")
-	await get_tree().physics_frame
-	call_deferred("actor_setup")
+	animation_player.play("RESET") # idk why i did this, i guess so they dont look dead or something for a single frame
 	
+	await get_tree().physics_frame # wait for the physics frame to be setup and shit, needed because otherwise there's an error
+	call_deferred("actor_setup") # call the actor setup function
 
 
-func actor_setup():
-	
+
+func actor_setup() -> void: # goofy ahh helper function i dont even know what it does really. i get the gist but not enough to explain it
 	navigation_agent_2d.target_position = get_tree().root.get_node("TestScene/CrowdEscapePath/Obstacles/door").global_position # gets the parent of the enemy node (current world scene) and then gets the desired node path
 
 
 
 func _physics_process(delta):
 	
-	if dead: #return if dead
+	if dead or knocked_down: #return if dead or knocked down, so they dont move if dead
 		return
 	
 	# set direction to next path position and set velocity
-	var direction = (navigation_agent_2d.get_next_path_position() - global_position).normalized()
-	velocity = direction * speed
-	if direction:
-		global_rotation = direction.angle()
-	else:
-		global_rotation = global_position.direction_to(player.global_position).angle()
-	move_and_slide()
+	var direction : Vector2 = (navigation_agent_2d.get_next_path_position() - global_position).normalized() # creates a base vector for the enemy which is just the direction to the next path position
+	velocity = direction * speed # sets the velocity to the direction times the specified speed
+	if direction: # if direction is not zero then the rotation is the angle of the direction vector
+		global_rotation = direction.angle() # set scene rotation to the angle of the direction vector
+	else: # if direction is zero just look at the player, this will be changed in the future
+		global_rotation = global_position.direction_to(player.global_position).angle() # get the direction to the player and then get the angle of that direction
+	move_and_slide() # called so it collides and slides on other collision shapes
 	
-	#set animation to walk if direction is anything but vector zero
-	if direction:
-		animation_player.play("walking")
-	else:
-		animation_player.play("idle")
 	
+	if direction: # if direction is not zero, play the walking animation
+		animation_player.play("walking") # play walking animation
+	else: # if direction is zero play the idle animation
+		animation_player.play("idle") # play idle animation
 	
 
-func kill():
-	if dead:
+
+
+func kill() -> void:
+	if dead or knocked_down: # skip over if already dead
 		return
-	dead = true
-	animation_player.play("killed")
-	global_rotation = global_position.direction_to(player.global_position).angle()
-	var blood_instance = blood_scene.instantiate()
-	get_tree().root.add_child(blood_instance)
-	blood_instance.global_position = global_position
-	blood_instance.rotation = global_position.direction_to(player.global_position).angle() + PI
+	dead = true # set dead state to true so it isn't called multiple times
+	animation_player.play("killed") # play death animation
+	global_rotation = global_position.direction_to(player.global_position).angle() # set rotation to player so it looks like momentum is preserved. will be changed to independent animations in the future
+	var blood_instance = blood_scene.instantiate() # instantiate the blood instance
+	get_tree().root.add_child(blood_instance) # add the instance to the tree
+	blood_instance.global_position = global_position # set the instance position to the enemy position
+	blood_instance.rotation = global_position.direction_to(player.global_position).angle() # rotate it so it looks like its spraying out of a wound
+
+func knock_down() -> void:
+	if knocked_down: # skip over if already knocked down
+		return
+	knocked_down = true # set knocked down state to true so it doesnt get called multiple times
+	global_rotation = global_position.direction_to(player.global_position).angle() # set rotation to player so it looks like momentum is preserved. will be changed to independent animations in the future
+	animation_player.play("killed") # play death animation
+	await animation_player.animation_finished # await for said animation to finish
+	animation_player.play("knocked down") # play the knocked down animation which just flashes the color to indicate you can execute them
+
+func execute() -> void:
+	pass
 
 
 
-func _on_navigation_agent_2d_navigation_finished(): #called when they reach their position
-	queue_free()
+func _on_navigation_agent_2d_navigation_finished() -> void: # called when they reach their position
+	queue_free() # delete the instance
+
+
+
+
+
+
+
+
+
+
+
+

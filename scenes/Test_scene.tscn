@@ -84,7 +84,7 @@ position = Vector2(407, 589)
 [node name="enemies" type="Node" parent="."]
 
 [node name="Enemy" parent="enemies" instance=ExtResource("5_njk1v")]
-position = Vector2(384, 218)
+position = Vector2(325, 309)
 sprites = ExtResource("5_kdid0")
 
 [node name="Enemy2" parent="enemies" instance=ExtResource("5_njk1v")]
@@ -220,7 +220,7 @@ texture = ExtResource("1_qydwx")
 shape = SubResource("RectangleShape2D_oi6vf")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." groups=["CanvasModulate"]]
-color = Color(0.0196078, 0.0156863, 0.129412, 1)
+color = Color(0.203922, 0.2, 0.341176, 1)
 
 [node name="lights" type="Node2D" parent="."]
 position = Vector2(598, 338)
