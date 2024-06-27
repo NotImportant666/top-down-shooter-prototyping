@@ -456,7 +456,7 @@ libraries = {
 }
 
 [node name="ExecutionArea" type="Area2D" parent="."]
-collision_layer = 16
+collision_layer = 2
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExecutionArea"]

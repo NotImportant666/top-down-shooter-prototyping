@@ -68,8 +68,8 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("execute") and isInExecutionRange:
 		isExecuting = true
-		#global_position = execution_positions[0]
-		#direction = execution_positions[0]
+		global_position = execution_positions[0]
+		direction = execution_positions[0]
 		
 		
 	if isExecuting and Input.is_action_just_pressed("shoot"):
@@ -130,7 +130,7 @@ func shoot() -> void: # called when left mouse is pressed
 		draw_tracer(collision_point) # call draw_tracer function and pass in said collision point
 		instantiate_smoke(muzzle_flash.global_position) # call instantiate_smoke function and set the instance position to the muzzle flash postion
 		
-		var random_number = randi_range(1, 2) # create a random number for death checking each time the shoot function is called
+		var random_number = randi_range(1, 1) # create a random number for death checking each time the shoot function is called
 		
 		if random_number == 1: # 1 in 5 chance that enemy is knocked down rather than killed
 			if ray_cast_2d.get_collider().has_method("knock_down"): # check if the collider has the knock_down method
@@ -177,16 +177,16 @@ func TestCutscene() -> void: # honestly don't know if this should be in the play
 
 func _on_execution_area_area_entered(area) -> void:
 	print("entered")
-	if area == get_tree().get_first_node_in_group("enemy").get_node("ExecutionBodyArea"):
-		execution_positions.insert(0 ,area.global_position)
-		
+	
+	execution_positions.insert(0 ,area.global_position)
+	
 	isInExecutionRange = true
 	print(execution_positions)
 
 
+
 func _on_execution_area_area_exited(area) -> void:
 	print("exited")
-	if area == get_tree().get_first_node_in_group("enemy").get_node("ExecutionBodyArea"):
-		execution_positions.erase(area.global_position)
-		
+	execution_positions.erase(area.global_position)
+	
 	isInExecutionRange = false
