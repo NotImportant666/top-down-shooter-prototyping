@@ -15,6 +15,7 @@ var speed : float = 200
 @onready var leg_walk_sprite_strip = $LegWalkSpriteStrip
 @onready var body_walk_sprite_strip = $BodyWalkSpriteStrip
 @onready var dead_sprite = $DeadSprite
+@onready var execution_body_area = $ExecutionBodyArea
 
 
 
@@ -29,6 +30,7 @@ func _ready(): # called when the scene opens
 	leg_walk_sprite_strip.texture = sprites.Leg_texture # set leg animations to whatever resource the scene currently has
 	body_walk_sprite_strip.texture = sprites.Body_texture # set body animations to whatever resource the scene currently has
 	dead_sprite.texture = sprites.Dead_texture # set dead texture to whatever resource the scene has
+	
 	
 	animation_player.play("RESET") # idk why i did this, i guess so they dont look dead or something for a single frame
 	
@@ -74,7 +76,7 @@ func kill() -> void:
 	var blood_instance = blood_scene.instantiate() # instantiate the blood instance
 	get_tree().root.add_child(blood_instance) # add the instance to the tree
 	blood_instance.global_position = global_position # set the instance position to the enemy position
-	blood_instance.rotation = global_position.direction_to(player.global_position).angle() # rotate it so it looks like its spraying out of a wound
+	blood_instance.rotation = global_position.direction_to(player.global_position).angle() + deg_to_rad(180)# rotate it so it looks like its spraying out of a wound
 
 func knock_down() -> void:
 	if knocked_down: # skip over if already knocked down
@@ -86,7 +88,20 @@ func knock_down() -> void:
 	animation_player.play("knocked down") # play the knocked down animation which just flashes the color to indicate you can execute them
 
 func execute() -> void:
-	pass
+	if dead:
+		return
+	dead = true
+	animation_player.play("execute1")
+	var blood_instance = blood_scene.instantiate() # instantiate the blood instance
+	get_tree().root.add_child(blood_instance) # add the instance to the tree
+	blood_instance.global_position = execution_body_area.global_position # set the instance position to the enemy position
+	blood_instance.rotation = execution_body_area.global_position.direction_to(player.global_position).angle() + deg_to_rad(180) # rotate it so it looks like its spraying out of a wound
+
+func mutilate() -> void:
+	var blood_instance = blood_scene.instantiate() # instantiate the blood instance
+	get_tree().root.add_child(blood_instance) # add the instance to the tree
+	blood_instance.global_position = global_position # set the instance position to the enemy position
+	blood_instance.rotation = global_position.direction_to(player.global_position).angle() # rotate it so it looks like its spraying out of a wound
 
 
 
@@ -104,3 +119,9 @@ func _on_navigation_agent_2d_navigation_finished() -> void: # called when they r
 
 
 
+
+
+
+
+func _on_player_call_execution_method(passed_in_enemy_instance : CharacterBody2D) -> void:
+	passed_in_enemy_instance.execute()

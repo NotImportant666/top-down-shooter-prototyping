@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TextureResource" load_steps=5 format=3 uid="uid://bj37f2du0qlog"]
+
+[ext_resource type="Script" path="res://Resources/texture_resource.gd" id="1_4se23"]
+[ext_resource type="Texture2D" uid="uid://dcikp6hxpmm40" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/characters/NPCs/sprESubwayWalk_strip8.png" id="1_o4kx1"]
+[ext_resource type="Texture2D" uid="uid://b21yewk5amqnk" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/characters/subwayGuyDead.png" id="2_ndi6y"]
+[ext_resource type="Texture2D" uid="uid://di0yskydh6881" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/characters/PigLegs.png" id="3_2va37"]
+
+[resource]
+script = ExtResource("1_4se23")
+Body_texture = ExtResource("1_o4kx1")
+Leg_texture = ExtResource("3_2va37")
+Dead_texture = ExtResource("2_ndi6y")

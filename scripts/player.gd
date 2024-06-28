@@ -27,19 +27,27 @@ extends CharacterBody2D
 
 
 
+
 @export var tracer_bullet_scene : PackedScene
 @export var gun_smoke_sprite_scene : PackedScene
 @export var direction : Vector2
 @export var speed : float = 200
+
 
 var canShoot : bool = true
 var cutsceneIsPlaying : bool = true
 var isInExecutionRange : bool = false
 var isExecuting : bool = false
 
+
 signal shots_fired
+signal call_execution_method
+signal call_mutilation_method
 
 var execution_positions : Array = []
+var enemy_instance : CharacterBody2D
+
+
 
 
 func _ready():
@@ -58,6 +66,7 @@ func _physics_process(delta):
 	if !isExecuting:
 		velocity = direction * speed # velocity is direction times speed, need this value for leg sprite rotation.
 	else:
+		
 		velocity = Vector2.ZERO
 	
 	leg_sprite_strip.global_rotation = velocity.angle() # need to add specific global position so the legs don't rotate with the mouse
@@ -66,14 +75,19 @@ func _physics_process(delta):
 	
 	## execution shit =====================================================================================================================================================
 	
-	if Input.is_action_just_pressed("execute") and isInExecutionRange:
-		isExecuting = true
-		global_position = execution_positions[0]
-		direction = execution_positions[0]
+	if Input.is_action_just_pressed("execute") and isInExecutionRange: # if E gets pressed while the ExecutionArea overlaps with an enmy area, run the cote
+		isExecuting = true # is in execution state
+		global_position = execution_positions[0] # set position the execution are for a smooth transition into a different animation
+		player.visible = false # make player invisible so i can play the execution animation instead
+	
+	if isExecuting and Input.is_action_just_pressed("shoot"): # If E has been pressed while in an execution area, click shoot to execute and exit execution state
+		isExecuting = false # no longer in the execution state
+		player.visible = true # player is visible again
+		call_execution_method.emit(enemy_instance) # this emits the signal to call the exection method in the enemy scene. That method basically just spawns blood and will
+	
+	if isExecuting and Input.is_action_just_pressed("alt shoot"):
 		
-		
-	if isExecuting and Input.is_action_just_pressed("shoot"):
-		isExecuting = false
+		pass
 	
 	
 	
@@ -130,7 +144,7 @@ func shoot() -> void: # called when left mouse is pressed
 		draw_tracer(collision_point) # call draw_tracer function and pass in said collision point
 		instantiate_smoke(muzzle_flash.global_position) # call instantiate_smoke function and set the instance position to the muzzle flash postion
 		
-		var random_number = randi_range(1, 1) # create a random number for death checking each time the shoot function is called
+		var random_number = randi_range(1, 3) # create a random number for death checking each time the shoot function is called
 		
 		if random_number == 1: # 1 in 5 chance that enemy is knocked down rather than killed
 			if ray_cast_2d.get_collider().has_method("knock_down"): # check if the collider has the knock_down method
@@ -177,16 +191,18 @@ func TestCutscene() -> void: # honestly don't know if this should be in the play
 
 func _on_execution_area_area_entered(area) -> void:
 	print("entered")
-	
+	enemy_instance = area.get_parent()
 	execution_positions.insert(0 ,area.global_position)
 	
 	isInExecutionRange = true
-	print(execution_positions)
+	
+	
 
 
 
 func _on_execution_area_area_exited(area) -> void:
 	print("exited")
 	execution_positions.erase(area.global_position)
+	
 	
 	isInExecutionRange = false

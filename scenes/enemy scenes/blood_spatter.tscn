@@ -10,14 +10,14 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 
 [node name="BloodSpatter" type="CPUParticles2D"]
-z_index = -2
+z_index = -3
 material = SubResource("CanvasItemMaterial_gwnn7")
 amount = 32
 lifetime = 0.2
 explosiveness = 0.95
 draw_order = 1
 texture = ExtResource("1_yp4lu")
-spread = 145.85
+spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 10.0
 initial_velocity_max = 200.0
