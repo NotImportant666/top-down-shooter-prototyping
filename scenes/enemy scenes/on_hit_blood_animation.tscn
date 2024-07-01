@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://butyyver2kyta"]
+
+[ext_resource type="Texture2D" uid="uid://ujc6ja5l50j5" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/gore/sprBloodSmoke_strip9.png" id="1_h03oy"]
+[ext_resource type="Script" path="res://OnHitBloodAnimation.gd" id="2_1txss"]
+
+[sub_resource type="Animation" id="Animation_tcnkk"]
+resource_name = "blood_animation"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_byulk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pk1ra"]
+_data = {
+"RESET": SubResource("Animation_byulk"),
+"blood_animation": SubResource("Animation_tcnkk")
+}
+
+[node name="OnHitBloodAnimation" type="Sprite2D"]
+texture = ExtResource("1_h03oy")
+hframes = 9
+script = ExtResource("2_1txss")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pk1ra")
+}

@@ -30,6 +30,8 @@ extends CharacterBody2D
 
 @export var tracer_bullet_scene : PackedScene
 @export var gun_smoke_sprite_scene : PackedScene
+@export var Enemy_on_hit_blood_animation : PackedScene
+@export var obstacle_on_hit_animation : PackedScene
 @export var direction : Vector2
 @export var speed : float = 200
 
@@ -66,7 +68,6 @@ func _physics_process(delta):
 	if !isExecuting:
 		velocity = direction * speed # velocity is direction times speed, need this value for leg sprite rotation.
 	else:
-		
 		velocity = Vector2.ZERO
 	
 	leg_sprite_strip.global_rotation = velocity.angle() # need to add specific global position so the legs don't rotate with the mouse
@@ -79,6 +80,7 @@ func _physics_process(delta):
 		isExecuting = true # is in execution state
 		global_position = execution_positions[0] # set position the execution are for a smooth transition into a different animation
 		player.visible = false # make player invisible so i can play the execution animation instead
+		
 	
 	if isExecuting and Input.is_action_just_pressed("shoot"): # If E has been pressed while in an execution area, click shoot to execute and exit execution state
 		isExecuting = false # no longer in the execution state
@@ -144,6 +146,11 @@ func shoot() -> void: # called when left mouse is pressed
 		draw_tracer(collision_point) # call draw_tracer function and pass in said collision point
 		instantiate_smoke(muzzle_flash.global_position) # call instantiate_smoke function and set the instance position to the muzzle flash postion
 		
+		if ray_cast_2d.get_collider().is_in_group("enemy"):
+			instantiate_bullet_collision_effect(Enemy_on_hit_blood_animation, ray_cast_2d.get_collision_point())
+		else:
+			instantiate_bullet_collision_effect(obstacle_on_hit_animation, ray_cast_2d.get_collision_point())
+		
 		var random_number = randi_range(1, 3) # create a random number for death checking each time the shoot function is called
 		
 		if random_number == 1: # 1 in 5 chance that enemy is knocked down rather than killed
@@ -152,6 +159,7 @@ func shoot() -> void: # called when left mouse is pressed
 		else:
 			if ray_cast_2d.get_collider().has_method("kill"): # check if the collider has kill method
 				ray_cast_2d.get_collider().kill() # call the kill method
+		
 	
 	shots_fired.emit() # emits the shots fired signal to activate enemy pathing
 
@@ -166,6 +174,12 @@ func instantiate_smoke(barrel_position) -> void:
 	get_tree().root.add_child(gun_smoke_sprite_instance) # add it to the tree
 	gun_smoke_sprite_instance.global_position = barrel_position # set it's position to the muzzle flash position
 	gun_smoke_sprite_instance.rotation = global_rotation - deg_to_rad(90) # rotate it by 90 degrees because the scene faces down rather than to the right.
+
+func instantiate_bullet_collision_effect(desired_effect: PackedScene,collision_point: Vector2):
+	var effect_instance = desired_effect.instantiate()
+	get_tree().root.add_child(effect_instance)
+	effect_instance.global_position = collision_point
+	effect_instance.rotation = (global_position - collision_point).angle() + deg_to_rad(180)
 
 
 
@@ -193,16 +207,12 @@ func _on_execution_area_area_entered(area) -> void:
 	print("entered")
 	enemy_instance = area.get_parent()
 	execution_positions.insert(0 ,area.global_position)
-	
 	isInExecutionRange = true
-	
-	
+
 
 
 
 func _on_execution_area_area_exited(area) -> void:
 	print("exited")
 	execution_positions.erase(area.global_position)
-	
-	
 	isInExecutionRange = false

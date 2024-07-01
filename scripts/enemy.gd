@@ -16,6 +16,7 @@ var speed : float = 200
 @onready var body_walk_sprite_strip = $BodyWalkSpriteStrip
 @onready var dead_sprite = $DeadSprite
 @onready var execution_body_area = $ExecutionBodyArea
+@onready var enemy = $"."
 
 
 
@@ -67,18 +68,16 @@ func _physics_process(delta):
 
 
 
-func kill() -> void:
+func kill() -> void: # gets called 4 out of 5 times the player raycast collides and player clicks left mouse
 	if dead or knocked_down: # skip over if already dead
 		return
 	dead = true # set dead state to true so it isn't called multiple times
 	animation_player.play("killed") # play death animation
 	global_rotation = global_position.direction_to(player.global_position).angle() # set rotation to player so it looks like momentum is preserved. will be changed to independent animations in the future
-	var blood_instance = blood_scene.instantiate() # instantiate the blood instance
-	get_tree().root.add_child(blood_instance) # add the instance to the tree
-	blood_instance.global_position = global_position # set the instance position to the enemy position
-	blood_instance.rotation = global_position.direction_to(player.global_position).angle() + deg_to_rad(180)# rotate it so it looks like its spraying out of a wound
+	add_blood_instance_to_tree(blood_scene, enemy, player, deg_to_rad(180))
 
-func knock_down() -> void:
+
+func knock_down() -> void: # gets called 1 fifth of the time when the player raycast collides and player clicks left mouse
 	if knocked_down: # skip over if already knocked down
 		return
 	knocked_down = true # set knocked down state to true so it doesnt get called multiple times
@@ -87,21 +86,16 @@ func knock_down() -> void:
 	await animation_player.animation_finished # await for said animation to finish
 	animation_player.play("knocked down") # play the knocked down animation which just flashes the color to indicate you can execute them
 
-func execute() -> void:
+func execute() -> void: # called when enemy is knocked down, player is in execution range, player clicks E followed by player clicking left mouse.
 	if dead:
 		return
 	dead = true
 	animation_player.play("execute1")
-	var blood_instance = blood_scene.instantiate() # instantiate the blood instance
-	get_tree().root.add_child(blood_instance) # add the instance to the tree
-	blood_instance.global_position = execution_body_area.global_position # set the instance position to the enemy position
-	blood_instance.rotation = execution_body_area.global_position.direction_to(player.global_position).angle() + deg_to_rad(180) # rotate it so it looks like its spraying out of a wound
+	add_blood_instance_to_tree(blood_scene, execution_body_area, player, deg_to_rad(180))
+
 
 func mutilate() -> void:
-	var blood_instance = blood_scene.instantiate() # instantiate the blood instance
-	get_tree().root.add_child(blood_instance) # add the instance to the tree
-	blood_instance.global_position = global_position # set the instance position to the enemy position
-	blood_instance.rotation = global_position.direction_to(player.global_position).angle() # rotate it so it looks like its spraying out of a wound
+	add_blood_instance_to_tree(blood_scene, execution_body_area, player, deg_to_rad(180))
 
 
 
@@ -109,19 +103,13 @@ func _on_navigation_agent_2d_navigation_finished() -> void: # called when they r
 	queue_free() # delete the instance
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 func _on_player_call_execution_method(passed_in_enemy_instance : CharacterBody2D) -> void:
 	passed_in_enemy_instance.execute()
+
+
+func add_blood_instance_to_tree(desired_instance: PackedScene, desired_body, desired_look_at_body: CharacterBody2D, extra_rotation: float) -> void:
+	var instance = desired_instance.instantiate()
+	get_tree().root.add_child(instance)
+	instance.global_position = desired_body.global_position
+	instance.rotation = desired_body.global_position.direction_to(desired_look_at_body.global_position).angle()
+
