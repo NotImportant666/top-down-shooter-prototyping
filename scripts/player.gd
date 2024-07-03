@@ -8,12 +8,13 @@ extends CharacterBody2D
 @onready var ray_cast_2d = $RayCast2D as RayCast2D
 @onready var firing_speed_timer = $FiringSpeedTimer as Timer
 @onready var muzzle_flash = $MuzzleFlash as Sprite2D
-@onready var player_camera = $PlayerCamera 
+@onready var player_camera = $PlayerCamera as Camera2D
 @onready var machine_gun_shoot = $MachineGunShoot as AudioStreamPlayer
 @onready var player = $"." as CharacterBody2D
-@onready var test_cutscene_animation = $CutsceneAnimations/TestCutsceneAnimation
 @onready var muzzle_flash_light = $MuzzleFlash/MuzzleFlashLight
 @onready var muzzle_flash_shadow = $MuzzleFlash/MuzzleFlashShadow
+
+
 
 
 
@@ -34,6 +35,8 @@ extends CharacterBody2D
 @export var obstacle_on_hit_animation : PackedScene
 @export var direction : Vector2
 @export var speed : float = 200
+@export var camera_zoom : Vector2
+
 
 
 var canShoot : bool = true
@@ -45,6 +48,7 @@ var isExecuting : bool = false
 signal shots_fired
 signal call_execution_method
 signal call_mutilation_method
+signal invert_colors_signal
 
 var execution_positions : Array = []
 var enemy_instance : CharacterBody2D
@@ -86,6 +90,7 @@ func _physics_process(delta):
 		isExecuting = false # no longer in the execution state
 		player.visible = true # player is visible again
 		call_execution_method.emit(enemy_instance) # this emits the signal to call the exection method in the enemy scene. That method basically just spawns blood and will
+		invert_colors_signal.emit()
 	
 	if isExecuting and Input.is_action_just_pressed("alt shoot"):
 		
@@ -127,7 +132,7 @@ func _physics_process(delta):
 	
 	ray_cast_2d.rotation = randf_range(-deg_to_rad(2), deg_to_rad(2)) # rotates the raycast by a random angle with 4 degrees, used for random bullets pread.
 	
-	
+	player_camera.zoom = camera_zoom
 	
 	## Light Detection =====================================================================================================================================================
 	
@@ -148,10 +153,11 @@ func shoot() -> void: # called when left mouse is pressed
 		
 		if ray_cast_2d.get_collider().is_in_group("enemy"):
 			instantiate_bullet_collision_effect(Enemy_on_hit_blood_animation, ray_cast_2d.get_collision_point())
+			
 		else:
 			instantiate_bullet_collision_effect(obstacle_on_hit_animation, ray_cast_2d.get_collision_point())
 		
-		var random_number = randi_range(1, 3) # create a random number for death checking each time the shoot function is called
+		var random_number = randi_range(1, 5) # create a random number for death checking each time the shoot function is called
 		
 		if random_number == 1: # 1 in 5 chance that enemy is knocked down rather than killed
 			if ray_cast_2d.get_collider().has_method("knock_down"): # check if the collider has the knock_down method
@@ -159,6 +165,7 @@ func shoot() -> void: # called when left mouse is pressed
 		else:
 			if ray_cast_2d.get_collider().has_method("kill"): # check if the collider has kill method
 				ray_cast_2d.get_collider().kill() # call the kill method
+				invert_colors_signal.emit()
 		
 	
 	shots_fired.emit() # emits the shots fired signal to activate enemy pathing
@@ -187,14 +194,11 @@ func instantiate_bullet_collision_effect(desired_effect: PackedScene,collision_p
 
 
 
-func TestCutscene() -> void: # honestly don't know if this should be in the player scene. look_at and cutsceneisplaying maybe, but the play animation should probably be in the world scene somehow
+func cutscene_started() -> void: # honestly don't know if this should be in the player scene. look_at and cutsceneisplaying maybe, but the play animation should probably be in the world scene somehow
 	cutsceneIsPlaying = true # self explanatory
-	look_at(direction) # makes the character look in the direction it's walking in so it isn't facing some random direction
-	test_cutscene_animation.play("walk up talk") # play walk up talk animation
-	await test_cutscene_animation.animation_finished # wait for the animation to finish
-	cutsceneIsPlaying = false # self explanatory
-	speed = 200 # set the speed to 200 again, gets all fucked up otherwise
-	
+
+func cutscene_ended() -> void:
+	cutsceneIsPlaying = false
 
 
 

@@ -3,11 +3,17 @@ extends Camera2D
 
 @export var random_strength : float = 5.0
 @export var shake_fade : float = 5.0
-@onready var player = $".."
+
+
+
+
 
 var rng : RandomNumberGenerator = RandomNumberGenerator.new() # create a new random number generator
 
 var shake_strength : float = 0.0
+
+func _ready():
+	pass
 
 func apply_shake() -> void:
 	shake_strength = random_strength # set the shake strength the the random strength

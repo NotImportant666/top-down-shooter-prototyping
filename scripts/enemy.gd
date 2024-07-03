@@ -17,6 +17,7 @@ var speed : float = 200
 @onready var dead_sprite = $DeadSprite
 @onready var execution_body_area = $ExecutionBodyArea
 @onready var enemy = $"."
+@onready var execution_body = $ExecutionBodyArea/ExecutionBody
 
 
 

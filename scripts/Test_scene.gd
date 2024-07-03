@@ -4,6 +4,10 @@ extends Node
 @onready var black_fade = $BlackFadeControl/BlackFade
 @onready var crowd_escape_path = $CrowdEscapePath
 @onready var player = $Player
+@onready var cutscene = $Cutscene
+@onready var color_inversion = $ColorInversion
+
+signal play_UI_animation
 
 
 func _ready():
@@ -22,12 +26,17 @@ func _on_player_shots_fired() -> void: # called when shots fired signal is emitt
 
 
 func intro_cutscene_play() -> void: 
-	#print("playing cutscene.")
-	var all_actions = InputMap.get_actions() # store all the input actions
-	for i in all_actions: # for every item stored in all_actions
-		InputMap.action_erase_events(i) # erase the action
-	
-	player.TestCutscene() # call the TestCutscene method from player scene to play the animations
-	
-	await player.get_node("CutsceneAnimations/TestCutsceneAnimation").animation_finished # get the animationplayer node from the player scene and await it's animation_finished signal
-	InputMap.load_from_project_settings() # load up the actions from the project settings once again, whatever they might be.
+	cutscene.play("walk up talk")
+	player.cutscene_started()
+	await cutscene.animation_finished
+	play_UI_animation.emit()
+	await Input.is_action_just_pressed("shoot")
+	cutscene.play("end")
+	player.cutscene_ended()
+
+
+
+func _on_player_invert_colors_signal():
+	color_inversion.visible = true
+	await get_tree().create_timer(0.05).timeout
+	color_inversion.visible = false

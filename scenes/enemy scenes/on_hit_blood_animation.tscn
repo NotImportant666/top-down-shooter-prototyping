@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://butyyver2kyta"]
 
 [ext_resource type="Texture2D" uid="uid://ujc6ja5l50j5" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/gore/sprBloodSmoke_strip9.png" id="1_h03oy"]
-[ext_resource type="Script" path="res://OnHitBloodAnimation.gd" id="2_1txss"]
+[ext_resource type="Script" path="res://scripts/OnHitBloodAnimation.gd" id="2_1txss"]
 
 [sub_resource type="Animation" id="Animation_tcnkk"]
 resource_name = "blood_animation"

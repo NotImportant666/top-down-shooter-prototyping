@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cal4ssq45r62t"]
+[gd_scene load_steps=24 format=3 uid="uid://cal4ssq45r62t"]
 
 [ext_resource type="Texture2D" uid="uid://cbpe0epi3naqq" path="res://icon.svg" id="1_qydwx"]
 [ext_resource type="Script" path="res://scripts/Test_scene.gd" id="1_xchvf"]
@@ -10,6 +10,8 @@
 [ext_resource type="Resource" uid="uid://txhsfb75p22t" path="res://Resources/victim resources/chief.tres" id="7_jrv8r"]
 [ext_resource type="Resource" uid="uid://bj37f2du0qlog" path="res://Resources/victim resources/subway_guy.tres" id="8_0algv"]
 [ext_resource type="Texture2D" uid="uid://cofpiion5u0w8" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/gradients/Circular 5 - 128x128.png" id="9_u2wvi"]
+[ext_resource type="Shader" path="res://shaders/color_inversion.gdshader" id="11_nu2yq"]
+[ext_resource type="PackedScene" uid="uid://dqauhauq6r1ht" path="res://scenes/dialogue_ui.tscn" id="12_c2uv2"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_t4olc"]
 vertices = PackedVector2Array(961, 294, 853, 294, 712, 290, 712, 186, 1113, 32, 1115, 603, 961, 398, 47, 602, 853, 398, 588, 383, 480, 383, 315, 293, 315, 189, 480, 279, 207, 293, 50, 36, 207, 189, 257, 36, 604, 186, 604, 290, 588, 279)
@@ -37,6 +39,100 @@ tonemap_mode = 3
 tonemap_white = 6.07
 adjustment_enabled = true
 adjustment_color_correction = SubResource("GradientTexture2D_83jvp")
+
+[sub_resource type="Animation" id="Animation_81dix"]
+resource_name = "dialogue"
+
+[sub_resource type="Animation" id="Animation_crqji"]
+resource_name = "end"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:direction")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player:camera_zoom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Player:speed")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [200.0]
+}
+
+[sub_resource type="Animation" id="Animation_603lg"]
+resource_name = "walk up talk"
+length = 2.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:direction")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player:camera_zoom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(4, 4), Vector2(2, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Player:speed")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [100.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mugis"]
+_data = {
+"dialogue": SubResource("Animation_81dix"),
+"end": SubResource("Animation_crqji"),
+"walk up talk": SubResource("Animation_603lg")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ruk8"]
+shader = ExtResource("11_nu2yq")
 
 [node name="TestScene" type="Node"]
 script = ExtResource("1_xchvf")
@@ -81,6 +177,8 @@ autoplay = true
 
 [node name="Player" parent="." instance=ExtResource("4_e780x")]
 position = Vector2(407, 589)
+speed = 100.0
+camera_zoom = Vector2(4, 4)
 
 [node name="enemies" type="Node" parent="."]
 
@@ -247,5 +345,28 @@ texture_scale = 5.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_48un5")
 
+[node name="Cutscene" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mugis")
+}
+
+[node name="ColorInversion" type="ColorRect" parent="."]
+visible = false
+z_index = 5
+material = SubResource("ShaderMaterial_6ruk8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1247.0
+offset_top = -643.0
+offset_right = 1247.0
+offset_bottom = 643.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialogueUI" parent="." instance=ExtResource("12_c2uv2")]
+
+[connection signal="play_UI_animation" from="." to="DialogueUI" method="_on_test_scene_play_ui_animation"]
 [connection signal="call_execution_method" from="Player" to="enemies/Enemy" method="_on_player_call_execution_method"]
+[connection signal="invert_colors_signal" from="Player" to="." method="_on_player_invert_colors_signal"]
 [connection signal="shots_fired" from="Player" to="." method="_on_player_shots_fired"]
