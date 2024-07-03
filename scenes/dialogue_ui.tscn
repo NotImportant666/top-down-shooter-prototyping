@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqauhauq6r1ht"]
+[gd_scene load_steps=7 format=3 uid="uid://dqauhauq6r1ht"]
 
 [ext_resource type="Texture2D" uid="uid://djknhnnvfeeql" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/obstacles/0x0.webp" id="1_ak5gh"]
 [ext_resource type="Script" path="res://scripts/dialogue_ui.gd" id="1_ytw8i"]
+[ext_resource type="FontFile" uid="uid://bctwgvrqy57qi" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/fonts/Theorevil.otf" id="3_7dd2o"]
 
 [sub_resource type="Animation" id="Animation_5pqhf"]
 resource_name = "dialogue"
@@ -17,7 +18,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
-"values": [Vector2(0, 648), Vector2(0, 548)]
+"values": [Vector2(0, 648), Vector2(0, 498)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -29,12 +30,42 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, 100)]
+"values": [Vector2(0, 0), Vector2(0, 150)]
+}
+
+[sub_resource type="Animation" id="Animation_ippfw"]
+resource_name = "end dialogue"
+length = 0.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/BottomRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(0, 498), Vector2(0, 648)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/TopRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(0, 150), Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xmg81"]
 _data = {
-"dialogue": SubResource("Animation_5pqhf")
+"dialogue": SubResource("Animation_5pqhf"),
+"end dialogue": SubResource("Animation_ippfw")
 }
 
 [node name="DialogueUI" type="CanvasLayer"]
@@ -48,28 +79,52 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="TopRect" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 150.0
+grow_horizontal = 2
+rotation = 3.14159
+pivot_offset = Vector2(576, 0)
+texture = ExtResource("1_ak5gh")
+expand_mode = 2
+
 [node name="BottomRect" type="TextureRect" parent="Control"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = 100.0
+offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("1_ak5gh")
 expand_mode = 1
 
-[node name="TopRect" type="TextureRect" parent="Control"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/BottomRect"]
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 100.0
-grow_horizontal = 2
-rotation = 3.14159
-pivot_offset = Vector2(576, 0)
-texture = ExtResource("1_ak5gh")
-expand_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -22.0
+offset_right = 331.0
+offset_bottom = 22.0
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Separator" type="Control" parent="Control/BottomRect/HBoxContainer"]
+layout_mode = 2
+
+[node name="DialogueText" type="Label" parent="Control/BottomRect/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_7dd2o")
+theme_override_font_sizes/font_size = 32
+text = "debug
+"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

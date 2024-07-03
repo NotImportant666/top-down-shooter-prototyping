@@ -42,6 +42,43 @@ adjustment_color_correction = SubResource("GradientTexture2D_83jvp")
 
 [sub_resource type="Animation" id="Animation_81dix"]
 resource_name = "dialogue"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:direction")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player:speed")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Player:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
 
 [sub_resource type="Animation" id="Animation_crqji"]
 resource_name = "end"
@@ -177,8 +214,10 @@ autoplay = true
 
 [node name="Player" parent="." instance=ExtResource("4_e780x")]
 position = Vector2(407, 589)
-speed = 100.0
-camera_zoom = Vector2(4, 4)
+rotation = -1.5708
+direction = Vector2(0, 0)
+speed = 0.0
+camera_zoom = Vector2(2, 2)
 
 [node name="enemies" type="Node" parent="."]
 
@@ -368,5 +407,7 @@ grow_vertical = 2
 
 [connection signal="play_UI_animation" from="." to="DialogueUI" method="_on_test_scene_play_ui_animation"]
 [connection signal="call_execution_method" from="Player" to="enemies/Enemy" method="_on_player_call_execution_method"]
+[connection signal="continue_dialogue" from="Player" to="DialogueUI" method="_on_player_continue_dialogue"]
 [connection signal="invert_colors_signal" from="Player" to="." method="_on_player_invert_colors_signal"]
 [connection signal="shots_fired" from="Player" to="." method="_on_player_shots_fired"]
+[connection signal="dialogue_ended" from="DialogueUI" to="." method="_on_dialogue_ui_dialogue_ended"]

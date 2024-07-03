@@ -49,6 +49,7 @@ signal shots_fired
 signal call_execution_method
 signal call_mutilation_method
 signal invert_colors_signal
+signal continue_dialogue
 
 var execution_positions : Array = []
 var enemy_instance : CharacterBody2D
@@ -100,7 +101,7 @@ func _physics_process(delta):
 	
 	## player body animations =====================================================================================================================================================
 	
-	if Input.is_action_pressed("shoot") and !isExecuting:
+	if Input.is_action_pressed("shoot") and !isExecuting and !cutsceneIsPlaying:
 		body_animations.play("shooting") # play shoot animation
 		player_camera.apply_shake() # call shake function from player camera
 		
@@ -114,7 +115,7 @@ func _physics_process(delta):
 			canShoot = false # set to false to regulate shot speed
 			firing_speed_timer.start() # shot speed timer, can be changed for different weapons
 		
-	elif direction and !isExecuting: # if direction is larger or less than zero
+	elif direction and !isExecuting : # if direction is larger or less than zero
 		machine_gun_shoot.stop() # stops shooting animation
 		body_animations.play("walking") # start walking animation
 	else: # if direction is equal to zero
@@ -134,8 +135,10 @@ func _physics_process(delta):
 	
 	player_camera.zoom = camera_zoom
 	
-	## Light Detection =====================================================================================================================================================
+	## Dialogue Interaction =====================================================================================================================================================
 	
+	if cutsceneIsPlaying and Input.is_action_just_pressed("shoot"):
+		continue_dialogue.emit()
 
 
 

@@ -6,9 +6,10 @@ extends Node
 @onready var player = $Player
 @onready var cutscene = $Cutscene
 @onready var color_inversion = $ColorInversion
+@onready var dialogue_ui = $DialogueUI
 
 signal play_UI_animation
-
+signal next_dialogue_section
 
 func _ready():
 	var alpha_tween : Tween = get_tree().create_tween() # create black fade tween
@@ -30,13 +31,18 @@ func intro_cutscene_play() -> void:
 	player.cutscene_started()
 	await cutscene.animation_finished
 	play_UI_animation.emit()
-	await Input.is_action_just_pressed("shoot")
-	cutscene.play("end")
-	player.cutscene_ended()
+	cutscene.play("dialogue")
+	
 
 
 
-func _on_player_invert_colors_signal():
+
+func _on_player_invert_colors_signal() -> void:
 	color_inversion.visible = true
 	await get_tree().create_timer(0.05).timeout
 	color_inversion.visible = false
+
+
+func _on_dialogue_ui_dialogue_ended():
+	cutscene.play("end")
+	player.cutscene_ended()
