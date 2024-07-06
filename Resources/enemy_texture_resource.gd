@@ -1,4 +1,4 @@
-class_name TextureResource
+class_name EnemyTextureResource
 extends Resource
 
 @export var Body_texture : Texture2D

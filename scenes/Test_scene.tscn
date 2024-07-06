@@ -188,7 +188,6 @@ grow_vertical = 2
 color = Color(0.32549, 0.32549, 0.32549, 1)
 
 [node name="BlackFadeControl" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -407,6 +406,7 @@ grow_vertical = 2
 
 [connection signal="play_UI_animation" from="." to="DialogueUI" method="_on_test_scene_play_ui_animation"]
 [connection signal="call_execution_method" from="Player" to="enemies/Enemy" method="_on_player_call_execution_method"]
+[connection signal="call_mutilation_method" from="Player" to="enemies/Enemy" method="_on_player_call_mutilation_method"]
 [connection signal="continue_dialogue" from="Player" to="DialogueUI" method="_on_player_continue_dialogue"]
 [connection signal="invert_colors_signal" from="Player" to="." method="_on_player_invert_colors_signal"]
 [connection signal="shots_fired" from="Player" to="." method="_on_player_shots_fired"]

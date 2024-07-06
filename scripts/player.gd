@@ -13,6 +13,7 @@ extends CharacterBody2D
 @onready var player = $"." as CharacterBody2D
 @onready var muzzle_flash_light = $MuzzleFlash/MuzzleFlashLight
 @onready var muzzle_flash_shadow = $MuzzleFlash/MuzzleFlashShadow
+@onready var glock_sound = $"Sounds/Glock sound"
 
 
 
@@ -28,7 +29,7 @@ extends CharacterBody2D
 
 
 
-
+@export var sprites : PlayerTextureResource
 @export var tracer_bullet_scene : PackedScene
 @export var gun_smoke_sprite_scene : PackedScene
 @export var Enemy_on_hit_blood_animation : PackedScene
@@ -39,7 +40,9 @@ extends CharacterBody2D
 
 
 
+
 var canShoot : bool = true
+var isShooting : bool = false
 var cutsceneIsPlaying : bool = true
 var isInExecutionRange : bool = false
 var isExecuting : bool = false
@@ -94,32 +97,37 @@ func _physics_process(delta):
 		invert_colors_signal.emit()
 	
 	if isExecuting and Input.is_action_just_pressed("alt shoot"):
-		
-		pass
+		call_mutilation_method.emit(enemy_instance)
 	
 	
 	
 	## player body animations =====================================================================================================================================================
 	
-	if Input.is_action_pressed("shoot") and !isExecuting and !cutsceneIsPlaying:
+	if Input.is_action_just_pressed("shoot") and !isExecuting and !cutsceneIsPlaying:
+		isShooting = true
 		body_animations.play("shooting") # play shoot animation
 		player_camera.apply_shake() # call shake function from player camera
 		
-		if !machine_gun_shoot.playing: # check if it's playing, if not, play the sound.
-			machine_gun_shoot.play()
+		#if !glock_sound.playing: # check if it's playing, if not, play the sound.
+		#	glock_sound.play()
+		
 		
 		
 		if canShoot:
+			glock_sound.play()
 			shoot() # call shoot function
 			muzzle_flash.visible = true  # makes muzzle flash node and it's children visible
 			canShoot = false # set to false to regulate shot speed
 			firing_speed_timer.start() # shot speed timer, can be changed for different weapons
 		
-	elif direction and !isExecuting : # if direction is larger or less than zero
+		
+		
+		
+	elif direction and !isExecuting and !isShooting : # if direction is larger or less than zero
 		machine_gun_shoot.stop() # stops shooting animation
 		body_animations.play("walking") # start walking animation
-	else: # if direction is equal to zero
-		machine_gun_shoot.stop() # stop machine gun animation
+	elif !isShooting: # if direction is equal to zero
+		#machine_gun_shoot.stop() # stop machine gun animation
 		body_animations.play("idle") # play idle animation
 	
 	## player leg animations =====================================================================================================================================================
@@ -147,6 +155,7 @@ func _physics_process(delta):
 
 func _on_firing_speed_timer_timeout() -> void: # when firing speed timer reaches zero
 	canShoot = true # shoot function can be called again
+	isShooting = false
 
 func shoot() -> void: # called when left mouse is pressed
 	if ray_cast_2d.is_colliding(): # checks if raycast is colliding with anything

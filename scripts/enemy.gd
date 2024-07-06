@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Enemy
 
 @export var blood_scene : PackedScene
-@export var sprites : TextureResource = null
+@export var sprites : EnemyTextureResource = null
 @export var dead : bool = false
 @export var knocked_down : bool = false 
 
@@ -93,9 +93,13 @@ func execute() -> void: # called when enemy is knocked down, player is in execut
 	dead = true
 	animation_player.play("execute1")
 	add_blood_instance_to_tree(blood_scene, execution_body_area, player, deg_to_rad(180))
+	execution_body_area.monitorable = false
 
 
 func mutilate() -> void:
+	if dead:
+		return
+	animation_player.play("mutilate1")
 	add_blood_instance_to_tree(blood_scene, execution_body_area, player, deg_to_rad(180))
 
 
@@ -108,9 +112,16 @@ func _on_player_call_execution_method(passed_in_enemy_instance : CharacterBody2D
 	passed_in_enemy_instance.execute()
 
 
+func _on_player_call_mutilation_method(passed_in_enemy_instance : CharacterBody2D) -> void:
+	passed_in_enemy_instance.mutilate()
+
+
 func add_blood_instance_to_tree(desired_instance: PackedScene, desired_body, desired_look_at_body: CharacterBody2D, extra_rotation: float) -> void:
 	var instance = desired_instance.instantiate()
 	get_tree().root.add_child(instance)
 	instance.global_position = desired_body.global_position
 	instance.rotation = desired_body.global_position.direction_to(desired_look_at_body.global_position).angle()
+
+
+
 

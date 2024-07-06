@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="TextureResource" load_steps=5 format=3 uid="uid://bvbv715wlp17x"]
 
 [ext_resource type="Texture2D" uid="uid://bgbbmt1qvqff0" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/characters/NPCs/sprBoss1Walk_strip8.png" id="1_de746"]
-[ext_resource type="Script" path="res://Resources/texture_resource.gd" id="1_pajln"]
+[ext_resource type="Script" path="res://Resources/enemy_texture_resource.gd" id="1_pajln"]
 [ext_resource type="Texture2D" uid="uid://cgthhuoqy8yxg" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/characters/NPCs/sprBoss1Dead.png" id="2_cq8af"]
 [ext_resource type="Texture2D" uid="uid://b6si3xcn2iyr6" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/characters/NPCs/sprChiefLegs_strip16.png" id="3_fpu4u"]
 
