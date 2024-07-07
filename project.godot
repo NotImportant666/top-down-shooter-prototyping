@@ -15,6 +15,12 @@ run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SignalBus="*res://Autoloads/signal_bus.gd"
+SettingsDataContainer="*res://Autoloads/settings_data_container.gd"
+SettingsSignalBus="*res://Autoloads/settings_signal_bus.gd"
+
 [display]
 
 window/stretch/mode="canvas_items"

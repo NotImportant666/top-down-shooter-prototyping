@@ -1,11 +1,101 @@
-[gd_scene load_steps=7 format=3 uid="uid://f2c4um7wirnr"]
+[gd_scene load_steps=22 format=3 uid="uid://f2c4um7wirnr"]
 
-[ext_resource type="Texture2D" uid="uid://d1lkek4wtku32" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/background/maxresdefault.jpg" id="1_f6rck"]
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_ivjlk"]
-[ext_resource type="FontFile" uid="uid://jki7o73w5j0j" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/fonts/Pixelate-Regular.otf" id="2_6o042"]
+[ext_resource type="FontFile" uid="uid://dirbplkocekf8" path="res://Real Assets/fonts/Jo_wrote_a_lovesong.ttf" id="2_eoigd"]
+[ext_resource type="Texture2D" uid="uid://b8y6tjjrb5jbb" path="res://Real Assets/backgrounds/TV Frame.png" id="2_mpntt"]
+[ext_resource type="Texture2D" uid="uid://cdhk8w0uadnxb" path="res://Real Assets/backgrounds/white noise frames5.png" id="3_8dl1i"]
 [ext_resource type="FontFile" uid="uid://bctwgvrqy57qi" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/fonts/Theorevil.otf" id="3_43yom"]
-[ext_resource type="AudioStream" uid="uid://h0ppusug70p6" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/SOUNDS/Environment sounds/empty-parking-garage-lighting-wind-ventilation-15-minutes-of-ambience.mp3" id="5_5e2wi"]
+[ext_resource type="Texture2D" uid="uid://cskf8pvufxwsw" path="res://Real Assets/fonts/title gif.png" id="3_suinx"]
+[ext_resource type="AudioStream" uid="uid://curd26l7l0rf2" path="res://Real Assets/sounds/ambience/the-static-calls.mp3" id="4_5330v"]
 [ext_resource type="PackedScene" uid="uid://6gwcmgg178wt" path="res://scenes/options scenes/options_menu.tscn" id="6_utatq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxyvu"]
+atlas = ExtResource("3_suinx")
+region = Rect2(0, 0, 1653, 1140)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfu06"]
+atlas = ExtResource("3_suinx")
+region = Rect2(1653, 0, 1653, 1140)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5cb7u"]
+atlas = ExtResource("3_suinx")
+region = Rect2(3306, 0, 1653, 1140)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbl6j"]
+atlas = ExtResource("3_suinx")
+region = Rect2(4959, 0, 1653, 1140)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h5nsg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxyvu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfu06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5cb7u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xbl6j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_idfvu"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vf56l"]
+gradient = SubResource("Gradient_idfvu")
+fill = 2
+fill_from = Vector2(0.487179, 0.521368)
+fill_to = Vector2(0.123932, 0.824786)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbgib"]
+atlas = ExtResource("3_8dl1i")
+region = Rect2(0, 0, 533, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mm4qs"]
+atlas = ExtResource("3_8dl1i")
+region = Rect2(1066, 0, 533, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m4qvt"]
+atlas = ExtResource("3_8dl1i")
+region = Rect2(533, 0, 533, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h037t"]
+atlas = ExtResource("3_8dl1i")
+region = Rect2(1599, 0, 533, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rlpax"]
+atlas = ExtResource("3_8dl1i")
+region = Rect2(2132, 0, 533, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fqk0l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbgib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mm4qs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m4qvt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h037t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rlpax")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -39,17 +129,6 @@ color = Color(0, 0, 0, 1)
 wait_time = 3.0
 one_shot = true
 
-[node name="Background" type="TextureRect" parent="."]
-self_modulate = Color(0.478431, 0.478431, 0.478431, 1)
-z_index = -1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_f6rck")
-
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -70,19 +149,22 @@ theme_override_constants/separation = 128
 layout_mode = 2
 
 [node name="GameTitle" type="Label" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.823529, 0.792157, 0.984314)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 6
-theme_override_constants/shadow_offset_y = 6
-theme_override_constants/outline_size = 12
-theme_override_constants/shadow_outline_size = 6
-theme_override_fonts/font = ExtResource("2_6o042")
+theme_override_fonts/font = ExtResource("2_eoigd")
 theme_override_font_sizes/font_size = 64
-text = "Postal Miami 666"
+text = "Game"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Title Animation" type="AnimatedSprite2D" parent="MarginContainer/VBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(592, 132)
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_h5nsg")
+frame_progress = 0.496386
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -167,14 +249,51 @@ text = "Quit
 "
 
 [node name="MenuAmbience" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_5e2wi")
+stream = ExtResource("4_5330v")
 volume_db = -10.0
 autoplay = true
-bus = &"BG ambience"
+bus = &"Music"
 
 [node name="OptionsMenu" parent="." instance=ExtResource("6_utatq")]
 visible = false
 layout_mode = 1
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.266667, 0.266667, 0.266667, 1)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(585, 284)
+scale = Vector2(20.75, 12.6875)
+texture = SubResource("GradientTexture2D_vf56l")
+
+[node name="DarkBG" type="ColorRect" parent="."]
+z_index = -8
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Background" type="TextureRect" parent="."]
+self_modulate = Color(0.478431, 0.478431, 0.478431, 1)
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_mpntt")
+expand_mode = 1
+
+[node name="WhiteNoise2" type="AnimatedSprite2D" parent="Background"]
+position = Vector2(588.25, 288)
+scale = Vector2(1.5075, 1.52)
+sprite_frames = SubResource("SpriteFrames_fqk0l")
+frame_progress = 0.814985
 
 [connection signal="timeout" from="FadeControl/BlackFadeTimer" to="." method="_on_black_fade_timer_timeout"]
 [connection signal="button_up" from="MarginContainer/HBoxContainer/VBoxContainer/Play" to="." method="_on_play_button_up"]

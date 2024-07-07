@@ -13,6 +13,8 @@ class_name MainMenu
 @onready var menu_ambience = $MenuAmbience as AudioStreamPlayer
 @onready var options_menu = $OptionsMenu as OptionsMenu
 @onready var margin_container = $MarginContainer as MarginContainer
+@onready var white_noise_2 = $Background/WhiteNoise2
+@onready var title_animation = $"MarginContainer/VBoxContainer/Title Animation"
 
 
 
@@ -21,6 +23,8 @@ class_name MainMenu
 func _ready(): # called when scene is loaded
 	var alpha_tween : Tween= get_tree().create_tween() # create tween for black screen alpha
 	alpha_tween.tween_property(black_fade, "modulate", Color(0,0,0,0), 2) # tween black screen alpha to zero over 2 seconds
+	white_noise_2.play("default")
+	title_animation.play("default")
 
 func _process(delta):
 	if Input.is_action_just_pressed("quit"): # check every frame to see if the quit button was pressed

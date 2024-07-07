@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ds3ncxon6jclc"]
+[gd_scene load_steps=7 format=3 uid="uid://ds3ncxon6jclc"]
 
 [ext_resource type="PackedScene" uid="uid://rj4u02ihokor" path="res://scenes/options scenes/window_mode_button.tscn" id="1_a7o17"]
+[ext_resource type="PackedScene" uid="uid://7yyjlg6ll8i6" path="res://scenes/options scenes/audio_slider_settings.tscn" id="1_dl5ud"]
 [ext_resource type="PackedScene" uid="uid://bp5jqyi6t06gf" path="res://scenes/options scenes/resolution_mode_button.tscn" id="1_g0xyg"]
 [ext_resource type="PackedScene" uid="uid://d2iiuavajylv7" path="res://scenes/options scenes/hotkey_rebind_button.tscn" id="1_w2eem"]
+[ext_resource type="PackedScene" uid="uid://cnln320qg34cy" path="res://scenes/options scenes/subtitles_toggle.tscn" id="5_sm7u2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8c6i"]
 
@@ -26,7 +28,7 @@ offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
-current_tab = 1
+current_tab = 3
 
 [node name="Sounds" type="TabBar" parent="TabContainer"]
 visible = false
@@ -44,12 +46,26 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Sounds/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Sounds/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Sounds/MarginContainer/ScrollContainer"]
 layout_mode = 2
 theme_override_constants/separation = 64
-alignment = 1
+
+[node name="AudioSliderSettings" parent="TabContainer/Sounds/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_dl5ud")]
+layout_mode = 2
+bus_name = "Master"
+
+[node name="AudioSliderSettings2" parent="TabContainer/Sounds/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_dl5ud")]
+layout_mode = 2
+
+[node name="AudioSliderSettings3" parent="TabContainer/Sounds/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_dl5ud")]
+layout_mode = 2
+bus_name = "SFX"
 
 [node name="Graphics" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Graphics"]
@@ -126,7 +142,6 @@ theme_override_constants/separation = 12
 theme_override_styles/separator = SubResource("StyleBoxEmpty_c8c6i")
 
 [node name="Accessibility" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Accessibility"]
@@ -141,7 +156,11 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Accessibility/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Accessibility/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 64
-alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Accessibility/MarginContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="SubtitlesToggle" parent="TabContainer/Accessibility/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("5_sm7u2")]
+layout_mode = 2

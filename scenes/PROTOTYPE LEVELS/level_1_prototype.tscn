@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=3 uid="uid://shhje1nm3822"]
+
+[ext_resource type="Shader" path="res://shaders/color_inversion.gdshader" id="1_0q1qg"]
+[ext_resource type="Script" path="res://scripts/level_1_prototype.gd" id="1_qb73q"]
+[ext_resource type="PackedScene" uid="uid://dofqw67b6mgvx" path="res://scenes/player.tscn" id="2_k06b7"]
+
+[sub_resource type="Environment" id="Environment_h0qb0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_01p60"]
+shader = ExtResource("1_0q1qg")
+
+[sub_resource type="Animation" id="Animation_6e3kx"]
+resource_name = "end"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fyxg6"]
+_data = {
+"end": SubResource("Animation_6e3kx")
+}
+
+[sub_resource type="TileSet" id="TileSet_udhc4"]
+
+[node name="Level1Prototype" type="Node2D"]
+scale = Vector2(0.974153, 1.03741)
+script = ExtResource("1_qb73q")
+
+[node name="BlackFadeControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="BlackFade" type="ColorRect" parent="BlackFadeControl"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TempFloor" type="ColorRect" parent="."]
+offset_left = -1888.0
+offset_top = -1464.0
+offset_right = 3255.0
+offset_bottom = 2557.0
+color = Color(0.27451, 0.27451, 0.27451, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_h0qb0")
+
+[node name="ColorInversion" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_01p60")
+offset_left = -776.0
+offset_top = -451.0
+offset_right = 2112.0
+offset_bottom = 1194.0
+
+[node name="OuterCollisionWall" type="Node2D" parent="."]
+
+[node name="Cutscenes" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fyxg6")
+}
+
+[node name="Lights" type="Node2D" parent="."]
+
+[node name="MaskSelectUI" type="Node" parent="."]
+
+[node name="DialogueUI" type="Node" parent="."]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_udhc4")
+format = 2
+
+[node name="Player" parent="." instance=ExtResource("2_k06b7")]
+position = Vector2(-405, 30)
+direction = Vector2(0, 0)
+camera_zoom = Vector2(2, 2)

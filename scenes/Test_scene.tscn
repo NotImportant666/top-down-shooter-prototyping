@@ -188,6 +188,7 @@ grow_vertical = 2
 color = Color(0.32549, 0.32549, 0.32549, 1)
 
 [node name="BlackFadeControl" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -215,7 +216,6 @@ autoplay = true
 position = Vector2(407, 589)
 rotation = -1.5708
 direction = Vector2(0, 0)
-speed = 0.0
 camera_zoom = Vector2(2, 2)
 
 [node name="enemies" type="Node" parent="."]
@@ -278,7 +278,7 @@ texture = ExtResource("1_qydwx")
 shape = SubResource("RectangleShape2D_oi6vf")
 
 [node name="LightOccluder2D2" type="LightOccluder2D" parent="CrowdEscapePath/Obstacles/pillar3"]
-position = Vector2(-674.91, -693.214)
+position = Vector2(-630.951, -687.461)
 scale = Vector2(2.58586, 2.87641)
 occluder = SubResource("OccluderPolygon2D_j4nka")
 

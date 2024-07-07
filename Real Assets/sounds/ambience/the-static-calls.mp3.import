@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://curd26l7l0rf2"
+path="res://.godot/imported/the-static-calls.mp3-490f388f509b3c44d18f0a5cbfab8567.mp3str"
+
+[deps]
+
+source_file="res://Real Assets/sounds/ambience/the-static-calls.mp3"
+dest_files=["res://.godot/imported/the-static-calls.mp3-490f388f509b3c44d18f0a5cbfab8567.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4
