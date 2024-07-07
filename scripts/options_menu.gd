@@ -20,4 +20,5 @@ func _process(delta):
 
 func _on_exit_button_button_up():
 	exit_options_menu.emit() # sends the signal
+	SettingsSignalBus.emit_set_settings_dictionary(SettingsDataContainer.create_storage_dictionary())
 	set_process(false) # once again turns off process so that no buttons from the options menu can be clicked

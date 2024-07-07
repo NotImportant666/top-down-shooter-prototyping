@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 SignalBus="*res://Autoloads/signal_bus.gd"
 SettingsDataContainer="*res://Autoloads/settings_data_container.gd"
 SettingsSignalBus="*res://Autoloads/settings_signal_bus.gd"
+SaveManager="*res://Autoloads/save_manager.gd"
 
 [display]
 

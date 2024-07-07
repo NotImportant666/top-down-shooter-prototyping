@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Resources/player_texture_resource.gd" id="1_80mk3"]
 [ext_resource type="Texture2D" uid="uid://be1eumvmvyoei" path="res://Real Assets/characters/player/schizo/schizoHandgunShooting2.png" id="1_vqwun"]
 [ext_resource type="Texture2D" uid="uid://dk8vxo2ckti7" path="res://Real Assets/characters/player/schizo/SchizoUnarmedWalk16.png" id="2_86lb7"]
-[ext_resource type="Texture2D" uid="uid://b0d6qeqcaqsce" path="res://Real Assets/characters/player/schizo/SchizoLegs16.png" id="3_6o161"]
+[ext_resource type="Texture2D" uid="uid://bnmkt8owu3xx4" path="res://Real Assets/characters/player/schizo/SchizoLegs16.png" id="3_6o161"]
 [ext_resource type="Texture2D" uid="uid://bhk7bntbw6jad" path="res://Real Assets/characters/player/schizo/SkiMask.png" id="4_4jrxl"]
 
 [resource]

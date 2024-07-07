@@ -15,10 +15,15 @@ signal on_SFX_sound_set(value : float)
 
 signal set_settings_dictionary(settings_dict : Dictionary)
 
-
+signal load_settings_data(settings_dict : Dictionary)
 
 
 #functions to emit said signals
+
+
+func emit_load_settings_data(settings_dict : Dictionary) -> void:
+	load_settings_data.emit(settings_dict)
+
 func emit_on_subtitles_toggled(value : bool) -> void:
 	on_subtitles_toggled.emit(value)
 
