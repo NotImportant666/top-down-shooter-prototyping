@@ -14,6 +14,7 @@ func _ready():
 	get_bus_name_by_index()
 	load_data()
 	set_name_label_text()
+	set_slider_value()
 	set_audio_num_label_text()
 
 
