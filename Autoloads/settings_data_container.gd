@@ -1,6 +1,7 @@
 extends Node
 
 @onready var default_settings : DefaultSettingsResource = preload("res://Resources/settings resources/default_settings.tres")
+@onready var keybind_resource : PlayerKeybindResource = preload("res://Resources/settings resources/player_keybind_default.tres")
 
 var window_mode_index : int = 0
 var resolution_index : int = 0
@@ -27,10 +28,21 @@ func create_storage_dictionary() -> Dictionary:
 		"music_volume" : music_volume,
 		"SFX_volume" : SFX_volume,
 		"subtitles_set" : subtitles_set,
+		"keybinds" : create_keybinds_dictionary()
 		
 	}
 	
 	return settings_container_dict
+
+
+func create_keybinds_dictionary() -> Dictionary:
+	var keybinds_container_dict = {
+		keybind_resource.MOVE_LEFT : keybind_resource.move_left_key,
+		keybind_resource.MOVE_RIGHT : keybind_resource.move_right_key,
+		keybind_resource.MOVE_UP : keybind_resource.move_up_key,
+		keybind_resource.MOVE_DOWN : keybind_resource.move_down_key
+	}
+	return keybinds_container_dict
 
 
 func get_window_mode_index() -> int:
@@ -64,6 +76,29 @@ func get_subtitles_set() -> bool:
 	return subtitles_set
 
 
+func get_keybind(action : String):
+	if !loaded_data.has("keybinds"):
+		match action:
+			keybind_resource.MOVE_LEFT:
+				return keybind_resource.DEFAULT_MOVE_LEFT_KEY
+			keybind_resource.MOVE_RIGHT:
+				return keybind_resource.DEFAULT_MOVE_RIGHT_KEY
+			keybind_resource.MOVE_UP:
+				return keybind_resource.DEFAULT_MOVE_UP_KEY
+			keybind_resource.MOVE_DOWN:
+				return keybind_resource.DEFAULT_MOVE_DOWN_KEY
+	else:
+		match action:
+			keybind_resource.MOVE_LEFT:
+				return keybind_resource.move_left_key
+			keybind_resource.MOVE_RIGHT:
+				return keybind_resource.move_right_key
+			keybind_resource.MOVE_UP:
+				return keybind_resource.move_up_key
+			keybind_resource.MOVE_DOWN:
+				return keybind_resource.move_down_key
+
+
 func on_window_mode_selected(index : int) -> void:
 	window_mode_index = index
 
@@ -82,6 +117,34 @@ func on_SFX_sound_set(value : float) -> void:
 func on_subtitles_toggled(toggled : bool) -> void:
 	subtitles_set = toggled
 
+func set_keybind(action : String, event) -> void:
+	match action:
+		keybind_resource.MOVE_LEFT:
+			keybind_resource.move_left_key = event
+		keybind_resource.MOVE_RIGHT:
+			keybind_resource.move_right_key = event
+		keybind_resource.MOVE_UP:
+			keybind_resource.move_up_key = event
+		keybind_resource.MOVE_DOWN:
+			keybind_resource.move_down_key = event
+
+
+func on_keybinds_loaded(data : Dictionary) -> void:
+	var loaded_move_left = InputEventKey.new()
+	var loaded_move_right = InputEventKey.new()
+	var loaded_move_up = InputEventKey.new()
+	var loaded_move_down = InputEventKey.new()
+	
+	loaded_move_left.set_physical_keycode(int(data.left))
+	loaded_move_right.set_physical_keycode(int(data.right))
+	loaded_move_up.set_physical_keycode(int(data.up))
+	loaded_move_down.set_physical_keycode(int(data.down))
+	
+	keybind_resource.move_left_key = loaded_move_left
+	keybind_resource.move_right_key = loaded_move_right
+	keybind_resource.move_up_key = loaded_move_up
+	keybind_resource.move_down_key = loaded_move_down
+
 func on_settings_data_loaded(data : Dictionary) -> void:
 	loaded_data = data
 	print(loaded_data)
@@ -91,6 +154,7 @@ func on_settings_data_loaded(data : Dictionary) -> void:
 	on_music_sound_set(loaded_data.music_volume)
 	on_SFX_sound_set(loaded_data.SFX_volume)
 	on_subtitles_toggled(loaded_data.subtitles_set)
+	on_keybinds_loaded(loaded_data.keybinds)
 	
 
 func handle_signals() -> void:

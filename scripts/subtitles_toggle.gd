@@ -5,6 +5,10 @@ extends Control
 @onready var check_button = $HBoxContainer/CheckButton
 
 
+func _ready():
+	load_data()
+	check_button.button_pressed = SettingsDataContainer.get_subtitles_set()
+
 
 func set_label_text(button_pressed : bool) -> void:
 	if !button_pressed:
@@ -12,6 +16,8 @@ func set_label_text(button_pressed : bool) -> void:
 	else:
 		state_lable.text = "On"
 
+func load_data() -> void:
+	_on_check_button_toggled(SettingsDataContainer.get_subtitles_set())
 
 func _on_check_button_toggled(toggled_on : bool) -> void:
 	set_label_text(toggled_on)

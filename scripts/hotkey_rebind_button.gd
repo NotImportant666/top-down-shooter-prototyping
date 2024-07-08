@@ -13,6 +13,11 @@ func _ready():
 	set_process_unhandled_key_input(false) # ignores key inputs
 	set_action_name() # call set action name function
 	set_text_for_key() # call set text for key function
+	load_keybinds()
+
+
+func load_keybinds() -> void:
+	rebind_action_key(SettingsDataContainer.get_keybind(action_name))
 
 func set_action_name() -> void:
 	label.text = "Unassigned" # sets the label text to unnasigned
@@ -59,6 +64,7 @@ func _unhandled_key_input(event) -> void:
 func rebind_action_key(event): # method that actually rebinds the key i guess, idk what to say here
 	InputMap.action_erase_events(action_name)
 	InputMap.action_add_event(action_name, event)
+	SettingsDataContainer.set_keybind(action_name, event)
 	
 	set_process_unhandled_key_input(false)
 	set_text_for_key()

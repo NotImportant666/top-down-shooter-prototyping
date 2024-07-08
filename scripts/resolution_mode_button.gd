@@ -11,6 +11,15 @@ const RESOLUTION_DICTIONARY : Dictionary = {
 
 func _ready():
 	add_resolution_items()
+	load_data()
+
+
+func load_data() -> void:
+	_on_option_button_item_selected(SettingsDataContainer.get_resolution_index())
+	option_button.select(SettingsDataContainer.get_resolution_index())
+
+
+
 
 func add_resolution_items() -> void:
 	for resolution_size_text in RESOLUTION_DICTIONARY:
