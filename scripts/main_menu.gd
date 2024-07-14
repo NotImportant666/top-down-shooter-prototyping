@@ -15,20 +15,20 @@ class_name MainMenu
 @onready var margin_container = $MarginContainer as MarginContainer
 @onready var white_noise_2 = $Background/WhiteNoise2
 @onready var title_animation = $"MarginContainer/VBoxContainer/Title Animation"
+@onready var symbol = $MarginContainer/VBoxContainer/Symbol
+@onready var play_text_animation = $MarginContainer/HBoxContainer/VBoxContainer/Play/PlayTextAnimation
 
 
 
 
 ## functions
 func _ready(): # called when scene is loaded
-	var alpha_tween : Tween= get_tree().create_tween() # create tween for black screen alpha
-	alpha_tween.tween_property(black_fade, "modulate", Color(0,0,0,0), 2) # tween black screen alpha to zero over 2 seconds
-	white_noise_2.play("default")
-	title_animation.play("default")
+	play_text_animations()
+	ready_tweens()
+
 
 func _process(delta):
-	if Input.is_action_just_pressed("quit"): # check every frame to see if the quit button was pressed
-		_on_quit_button_up() # call this method
+	pass
 
 func _on_play_button_up(): # called when play button is clicked and let go
 	black_fade_to_next_scene("res://scenes/Test_scene.tscn") #calls the fade function, test scene is passed in, could be level 1 in an actual game
@@ -53,3 +53,35 @@ func black_fade_to_next_scene(desired_scene: String): # method used for fading b
 func _on_options_menu_exit_options_menu(): # called when exit button in options menu is pressed
 	margin_container.visible = true # make the main menu visible
 	options_menu.visible = false # hide the options menu
+
+
+func play_text_animations() -> void:
+	white_noise_2.play("default")
+	title_animation.play("new_animation")
+	play_text_animation.play("default")
+
+
+func _on_play_mouse_entered():
+	make_text_white(play_text_animation)
+	
+
+func _on_play_mouse_exited():
+	make_text_black(play_text_animation)
+
+
+func make_text_white(object : AnimatedSprite2D) -> void:
+	var white_tween = get_tree().create_tween()
+	white_tween.tween_property(object, "self_modulate", Color.WHITE, 0.2)
+
+func make_text_black(object : AnimatedSprite2D) -> void:
+	var white_tween = get_tree().create_tween()
+	white_tween.tween_property(object, "self_modulate", Color.BLACK, 0.2)
+
+func ready_tweens() -> void:
+	var alpha_tween : Tween= get_tree().create_tween() # create tween for black screen alpha
+	alpha_tween.tween_property(black_fade, "modulate", Color(0,0,0,0), 2) # tween black screen alpha to zero over 2 seconds
+	var symbol_spin_tween : Tween = get_tree().create_tween()
+	symbol_spin_tween.tween_property(symbol, "rotation", 20*PI, 400)
+
+
+

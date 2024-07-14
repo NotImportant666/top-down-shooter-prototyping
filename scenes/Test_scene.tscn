@@ -168,7 +168,7 @@ _data = {
 "walk up talk": SubResource("Animation_603lg")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ruk8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ddnof"]
 shader = ExtResource("11_nu2yq")
 
 [node name="TestScene" type="Node"]
@@ -216,6 +216,7 @@ autoplay = true
 position = Vector2(407, 589)
 rotation = -1.5708
 direction = Vector2(0, 0)
+speed = 0.0
 camera_zoom = Vector2(2, 2)
 
 [node name="enemies" type="Node" parent="."]
@@ -391,7 +392,7 @@ libraries = {
 [node name="ColorInversion" type="ColorRect" parent="."]
 visible = false
 z_index = 5
-material = SubResource("ShaderMaterial_6ruk8")
+material = SubResource("ShaderMaterial_ddnof")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

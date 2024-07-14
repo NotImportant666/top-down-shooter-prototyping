@@ -2,7 +2,8 @@ extends Control
 
 class_name OptionsMenu
 
-@onready var exit_button = $MarginContainer/VBoxContainer/ExitButton as Button
+@onready var exit_button = $MarginContainer/VBoxContainer/HBoxContainer/ExitButton as Button
+@onready var settings_tab_container = $MarginContainer/VBoxContainer/SettingsTabContainer as SettingsTabContainer
 
 
 
@@ -11,6 +12,7 @@ signal exit_options_menu # sends this signal which i connect to the main menu to
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_process(false) #just a precaution so no buttons can be pressed from the options menu while it is not showing
+	settings_tab_container.exit_settings_tab.connect(_on_exit_button_button_up)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

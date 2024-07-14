@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cskf8pvufxwsw"
-path="res://.godot/imported/title gif.png-31f30abd7b54b58cf15582157bcd306f.ctex"
+uid="uid://7vl3i337oysf"
+path="res://.godot/imported/playButtonGif.png-9e6928c0e7e79ef50ab2e31dfd77b3a8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Real Assets/fonts/title gif.png"
-dest_files=["res://.godot/imported/title gif.png-31f30abd7b54b58cf15582157bcd306f.ctex"]
+source_file="res://Real Assets/fonts/animated texts/playButtonGif.png"
+dest_files=["res://.godot/imported/playButtonGif.png-9e6928c0e7e79ef50ab2e31dfd77b3a8.ctex"]
 
 [params]
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://ds3ncxon6jclc"]
+[gd_scene load_steps=8 format=3 uid="uid://ds3ncxon6jclc"]
 
 [ext_resource type="PackedScene" uid="uid://rj4u02ihokor" path="res://scenes/options scenes/window_mode_button.tscn" id="1_a7o17"]
+[ext_resource type="Script" path="res://scripts/settings_tab_container.gd" id="1_auect"]
 [ext_resource type="PackedScene" uid="uid://7yyjlg6ll8i6" path="res://scenes/options scenes/audio_slider_settings.tscn" id="1_dl5ud"]
 [ext_resource type="PackedScene" uid="uid://bp5jqyi6t06gf" path="res://scenes/options scenes/resolution_mode_button.tscn" id="1_g0xyg"]
 [ext_resource type="PackedScene" uid="uid://d2iiuavajylv7" path="res://scenes/options scenes/hotkey_rebind_button.tscn" id="1_w2eem"]
@@ -15,24 +16,24 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_auect")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 100.0
-offset_top = 50.0
+offset_left = 128.0
+offset_top = 128.0
 offset_right = -100.0
-offset_bottom = -100.0
+offset_bottom = -128.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
-current_tab = 3
 
 [node name="Sounds" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
+theme_override_colors/drop_mark_color = Color(0, 0, 0, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Sounds"]
 layout_mode = 1
@@ -142,6 +143,7 @@ theme_override_constants/separation = 12
 theme_override_styles/separator = SubResource("StyleBoxEmpty_c8c6i")
 
 [node name="Accessibility" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Accessibility"]
