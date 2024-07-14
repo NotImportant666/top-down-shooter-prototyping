@@ -1,9 +1,82 @@
-[gd_scene load_steps=5 format=3 uid="uid://6gwcmgg178wt"]
+[gd_scene load_steps=16 format=3 uid="uid://6gwcmgg178wt"]
 
 [ext_resource type="Script" path="res://scripts/options_menu.gd" id="1_cyuar"]
-[ext_resource type="FontFile" uid="uid://jki7o73w5j0j" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/fonts/Pixelate-Regular.otf" id="2_fw7tl"]
 [ext_resource type="PackedScene" uid="uid://ds3ncxon6jclc" path="res://scenes/options scenes/settings_tab_container.tscn" id="3_0w8wj"]
+[ext_resource type="Texture2D" uid="uid://1xifv6mb2t7r" path="res://Real Assets/fonts/animated texts/ExitButtonGif.png" id="3_5dde6"]
 [ext_resource type="FontFile" uid="uid://bctwgvrqy57qi" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/fonts/Theorevil.otf" id="3_wvhyl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ok8j3"]
+atlas = ExtResource("3_5dde6")
+region = Rect2(0, 0, 404, 166)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ukhj"]
+atlas = ExtResource("3_5dde6")
+region = Rect2(404, 0, 404, 166)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3qe8n"]
+atlas = ExtResource("3_5dde6")
+region = Rect2(808, 0, 404, 166)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iju5q"]
+atlas = ExtResource("3_5dde6")
+region = Rect2(1212, 0, 404, 166)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hy20"]
+atlas = ExtResource("3_5dde6")
+region = Rect2(808, 0, 404, 166)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gcxeh"]
+atlas = ExtResource("3_5dde6")
+region = Rect2(0, 0, 404, 166)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_01ac2"]
+atlas = ExtResource("3_5dde6")
+region = Rect2(1212, 0, 404, 166)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tx4x7"]
+atlas = ExtResource("3_5dde6")
+region = Rect2(404, 0, 404, 166)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_us0ci"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ok8j3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ukhj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3qe8n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iju5q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3hy20")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gcxeh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_01ac2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tx4x7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_m1h8h"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vxkf7"]
+gradient = SubResource("Gradient_m1h8h")
+fill = 1
+fill_from = Vector2(0.517094, 0.517094)
+fill_to = Vector2(0.846154, 0.209402)
 
 [node name="OptionsMenu" type="Control"]
 layout_mode = 3
@@ -22,25 +95,32 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 48
-theme_override_constants/margin_top = 58
-theme_override_constants/margin_right = 48
+theme_override_constants/margin_left = 59
+theme_override_constants/margin_top = 128
+theme_override_constants/margin_right = 59
 theme_override_constants/margin_bottom = 6
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = -12
+theme_override_constants/separation = 56
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="SettingsTabContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_0w8wj")]
 layout_mode = 2
-theme_override_constants/separation = 128
+size_flags_vertical = 3
 
-[node name="Separator" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 187
+theme_override_constants/margin_top = 59
 
-[node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-clip_contents = true
-custom_minimum_size = Vector2(120, 32)
+[node name="ExitButton" type="Button" parent="MarginContainer2"]
+custom_minimum_size = Vector2(140, 32)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -59,29 +139,21 @@ theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 12
 theme_override_fonts/font = ExtResource("3_wvhyl")
-theme_override_font_sizes/font_size = 32
-text = "Exit"
+theme_override_font_sizes/font_size = 48
+text = "
+"
 
-[node name="OptionsTitle" type="Label" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.823529, 0.792157, 0.984314)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 6
-theme_override_constants/shadow_offset_y = 6
-theme_override_constants/outline_size = 12
-theme_override_constants/shadow_outline_size = 6
-theme_override_fonts/font = ExtResource("2_fw7tl")
-theme_override_font_sizes/font_size = 32
-text = "Options"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="ExitTextAnimation" type="AnimatedSprite2D" parent="MarginContainer2/ExitButton"]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(70.0018, 34.712)
+scale = Vector2(0.221287, 0.256627)
+sprite_frames = SubResource("SpriteFrames_us0ci")
 
-[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/VBoxContainer/OptionsTitle"]
-hframes = 4
+[node name="ExitBGLight" type="PointLight2D" parent="MarginContainer2/ExitButton"]
+position = Vector2(67.0018, 30.212)
+scale = Vector2(2.28125, 1.60938)
+texture = SubResource("GradientTexture2D_vxkf7")
 
-[node name="SettingsTabContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_0w8wj")]
-layout_mode = 2
-size_flags_vertical = 3
-
-[connection signal="button_up" from="MarginContainer/VBoxContainer/HBoxContainer/ExitButton" to="." method="_on_exit_button_button_up"]
+[connection signal="button_up" from="MarginContainer2/ExitButton" to="." method="_on_exit_button_button_up"]
+[connection signal="mouse_entered" from="MarginContainer2/ExitButton" to="." method="_on_exit_button_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer2/ExitButton" to="." method="_on_exit_button_mouse_exited"]

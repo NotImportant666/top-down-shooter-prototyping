@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://ds3ncxon6jclc"]
+[gd_scene load_steps=9 format=3 uid="uid://ds3ncxon6jclc"]
 
 [ext_resource type="PackedScene" uid="uid://rj4u02ihokor" path="res://scenes/options scenes/window_mode_button.tscn" id="1_a7o17"]
 [ext_resource type="Script" path="res://scripts/settings_tab_container.gd" id="1_auect"]
 [ext_resource type="PackedScene" uid="uid://7yyjlg6ll8i6" path="res://scenes/options scenes/audio_slider_settings.tscn" id="1_dl5ud"]
 [ext_resource type="PackedScene" uid="uid://bp5jqyi6t06gf" path="res://scenes/options scenes/resolution_mode_button.tscn" id="1_g0xyg"]
 [ext_resource type="PackedScene" uid="uid://d2iiuavajylv7" path="res://scenes/options scenes/hotkey_rebind_button.tscn" id="1_w2eem"]
+[ext_resource type="FontFile" uid="uid://cet36i7r0j0e1" path="res://Real Assets/fonts/DIEDIEDI.TTF" id="2_jh26p"]
 [ext_resource type="PackedScene" uid="uid://cnln320qg34cy" path="res://scenes/options scenes/subtitles_toggle.tscn" id="5_sm7u2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8c6i"]
@@ -29,9 +30,13 @@ offset_right = -100.0
 offset_bottom = -128.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_jh26p")
+theme_override_font_sizes/font_size = 24
 tab_alignment = 1
+current_tab = 2
 
 [node name="Sounds" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/drop_mark_color = Color(0, 0, 0, 1)
 
@@ -86,7 +91,7 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Graphics/MarginContainer/ScrollContainer"]
 layout_mode = 2
-theme_override_constants/separation = 128
+theme_override_constants/separation = 96
 
 [node name="WindowModeButton" parent="TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_a7o17")]
 layout_mode = 2
@@ -95,7 +100,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Controls" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Controls"]
@@ -106,7 +110,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 24
+theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
@@ -115,11 +119,10 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Controls/MarginContainer/ScrollContainer"]
 layout_mode = 2
-theme_override_constants/separation = 64
+theme_override_constants/separation = 80
 
 [node name="HSeparator" type="HSeparator" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 12
 theme_override_styles/separator = SubResource("StyleBoxEmpty_c8c6i")
 
 [node name="HotkeyRebindButton" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_w2eem")]

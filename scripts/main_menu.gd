@@ -17,8 +17,11 @@ class_name MainMenu
 @onready var title_animation = $"MarginContainer/VBoxContainer/Title Animation"
 @onready var symbol = $MarginContainer/VBoxContainer/Symbol
 @onready var play_text_animation = $MarginContainer/HBoxContainer/VBoxContainer/Play/PlayTextAnimation
+@onready var options_text_animation = $MarginContainer/HBoxContainer/VBoxContainer/Options/OptionsTextAnimation
+@onready var exit_text_animation = $MarginContainer/HBoxContainer/VBoxContainer/Quit/ExitTextAnimation
+@onready var tv_light = $TVLight
 
-
+var playButtonPressed : bool = false
 
 
 ## functions
@@ -31,6 +34,9 @@ func _process(delta):
 	pass
 
 func _on_play_button_up(): # called when play button is clicked and let go
+	if playButtonPressed:
+		return
+	playButtonPressed = true
 	black_fade_to_next_scene("res://scenes/Test_scene.tscn") #calls the fade function, test scene is passed in, could be level 1 in an actual game
 	var sound_tween : Tween = get_tree().create_tween() # special tween for play button since this starts the game, don't want the ambience going for that
 	sound_tween.tween_property(menu_ambience,"volume_db", -72, 2) # tween the ambience down to something really quiet, makes the transition smoother
@@ -39,6 +45,7 @@ func _on_options_button_up(): # called when options button is clicked and let go
 	margin_container.visible = false # hide the main menu 
 	options_menu.set_process(true) # turn on the process function for the options menu so buttons can be clicked
 	options_menu.visible = true # show the options menu
+	
 
 func _on_quit_button_up(): # called when quit button is clicked and let go
 	get_tree().quit() # just quit the game, nothing special
@@ -53,20 +60,18 @@ func black_fade_to_next_scene(desired_scene: String): # method used for fading b
 func _on_options_menu_exit_options_menu(): # called when exit button in options menu is pressed
 	margin_container.visible = true # make the main menu visible
 	options_menu.visible = false # hide the options menu
+	
 
 
 func play_text_animations() -> void:
 	white_noise_2.play("default")
 	title_animation.play("new_animation")
 	play_text_animation.play("default")
+	options_text_animation.play("default")
+	exit_text_animation.play("default")
 
 
-func _on_play_mouse_entered():
-	make_text_white(play_text_animation)
-	
 
-func _on_play_mouse_exited():
-	make_text_black(play_text_animation)
 
 
 func make_text_white(object : AnimatedSprite2D) -> void:
@@ -84,4 +89,25 @@ func ready_tweens() -> void:
 	symbol_spin_tween.tween_property(symbol, "rotation", 20*PI, 400)
 
 
+func _on_options_mouse_entered():
+	make_text_white(options_text_animation)
 
+
+func _on_options_mouse_exited():
+	make_text_black(options_text_animation)
+
+
+func _on_play_mouse_entered():
+	make_text_white(play_text_animation)
+	
+
+func _on_play_mouse_exited():
+	make_text_black(play_text_animation)
+
+
+func _on_quit_mouse_entered():
+	make_text_white(exit_text_animation)
+
+
+func _on_quit_mouse_exited():
+	make_text_black(exit_text_animation)

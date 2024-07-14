@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2iiuavajylv7"]
+[gd_scene load_steps=3 format=3 uid="uid://d2iiuavajylv7"]
 
 [ext_resource type="Script" path="res://scripts/hotkey_rebind_button.gd" id="1_cinr6"]
+[ext_resource type="FontFile" uid="uid://cet36i7r0j0e1" path="res://Real Assets/fonts/DIEDIEDI.TTF" id="2_af5uv"]
 
 [node name="HotkeyRebindButton" type="Control" groups=["hotkey button"]]
 layout_mode = 3
@@ -25,6 +26,7 @@ alignment = 1
 [node name="Label" type="Label" parent="HBoxContainer"]
 custom_minimum_size = Vector2(400, 30)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_af5uv")
 theme_override_font_sizes/font_size = 32
 text = "ACTION"
 vertical_alignment = 1
@@ -37,6 +39,8 @@ theme_override_constants/separation = 200
 [node name="Button" type="Button" parent="HBoxContainer"]
 custom_minimum_size = Vector2(164, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_af5uv")
+theme_override_font_sizes/font_size = 32
 toggle_mode = true
 text = "ACTION_KEY"
 

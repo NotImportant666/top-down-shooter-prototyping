@@ -1,13 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://bp5jqyi6t06gf"]
+[gd_scene load_steps=4 format=3 uid="uid://bp5jqyi6t06gf"]
 
 [ext_resource type="PackedScene" uid="uid://co8mogaguvuos" path="res://scenes/options scenes/options_display_button.tscn" id="1_71uh0"]
 [ext_resource type="Script" path="res://scripts/resolution_mode_button.gd" id="2_8fnt8"]
+[ext_resource type="FontFile" uid="uid://cet36i7r0j0e1" path="res://Real Assets/fonts/DIEDIEDI.TTF" id="3_5ft0p"]
 
 [node name="ResolutionModeButton" instance=ExtResource("1_71uh0")]
 script = ExtResource("2_8fnt8")
 
+[node name="HBoxContainer" parent="." index="0"]
+theme_override_constants/separation = 128
+
 [node name="Label" parent="HBoxContainer" index="0"]
+theme_override_fonts/font = ExtResource("3_5ft0p")
 text = "Resolution
 "
+
+[node name="OptionButton" parent="HBoxContainer" index="2"]
+custom_minimum_size = Vector2(288, 64)
+theme_override_fonts/font = ExtResource("3_5ft0p")
+theme_override_font_sizes/font_size = 24
+alignment = 1
 
 [connection signal="item_selected" from="HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]

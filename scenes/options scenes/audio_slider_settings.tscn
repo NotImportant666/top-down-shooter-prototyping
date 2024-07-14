@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://7yyjlg6ll8i6"]
+[gd_scene load_steps=3 format=3 uid="uid://7yyjlg6ll8i6"]
 
 [ext_resource type="Script" path="res://scripts/audio_slider_settings.gd" id="1_lext7"]
+[ext_resource type="FontFile" uid="uid://cet36i7r0j0e1" path="res://Real Assets/fonts/DIEDIEDI.TTF" id="2_sbrlm"]
 
 [node name="AudioSliderSettings" type="Control"]
 layout_mode = 3
@@ -21,6 +22,7 @@ theme_override_constants/separation = 42
 [node name="AudioNameLabel" type="Label" parent="HBoxContainer"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_sbrlm")
 theme_override_font_sizes/font_size = 32
 text = "Master Volume"
 
@@ -41,6 +43,7 @@ layout_mode = 2
 [node name="AudioNumLabel" type="Label" parent="HBoxContainer"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_sbrlm")
 theme_override_font_sizes/font_size = 32
 text = "100"
 
