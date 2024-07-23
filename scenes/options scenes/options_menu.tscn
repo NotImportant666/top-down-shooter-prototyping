@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://6gwcmgg178wt"]
+[gd_scene load_steps=24 format=3 uid="uid://6gwcmgg178wt"]
 
 [ext_resource type="Script" path="res://scripts/options_menu.gd" id="1_cyuar"]
 [ext_resource type="PackedScene" uid="uid://ds3ncxon6jclc" path="res://scenes/options scenes/settings_tab_container.tscn" id="3_0w8wj"]
 [ext_resource type="Texture2D" uid="uid://1xifv6mb2t7r" path="res://Real Assets/fonts/animated texts/ExitButtonGif.png" id="3_5dde6"]
 [ext_resource type="FontFile" uid="uid://bctwgvrqy57qi" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/fonts/Theorevil.otf" id="3_wvhyl"]
+[ext_resource type="Texture2D" uid="uid://ds403b5rmxdja" path="res://Real Assets/fonts/animated texts/OptionsButtonGif.png" id="5_2hx15"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ok8j3"]
 atlas = ExtResource("3_5dde6")
@@ -77,6 +78,51 @@ gradient = SubResource("Gradient_m1h8h")
 fill = 1
 fill_from = Vector2(0.517094, 0.517094)
 fill_to = Vector2(0.846154, 0.209402)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rmgn"]
+atlas = ExtResource("5_2hx15")
+region = Rect2(0, 0, 628, 244)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0hb6"]
+atlas = ExtResource("5_2hx15")
+region = Rect2(628, 0, 628, 244)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8imq"]
+atlas = ExtResource("5_2hx15")
+region = Rect2(1256, 0, 628, 244)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tg5er"]
+atlas = ExtResource("5_2hx15")
+region = Rect2(1884, 0, 628, 244)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_db8kn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1rmgn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k0hb6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8imq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tg5er")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_lsd8s"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ci2ux"]
+gradient = SubResource("Gradient_lsd8s")
+fill = 1
+fill_from = Vector2(0.512821, 0.521368)
+fill_to = Vector2(0.811966, 0.149573)
 
 [node name="OptionsMenu" type="Control"]
 layout_mode = 3
@@ -153,6 +199,17 @@ sprite_frames = SubResource("SpriteFrames_us0ci")
 position = Vector2(67.0018, 30.212)
 scale = Vector2(2.28125, 1.60938)
 texture = SubResource("GradientTexture2D_vxkf7")
+
+[node name="OptionsTitle" type="AnimatedSprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(584.066, 163.967)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_db8kn")
+
+[node name="OptionsTitleLight" type="PointLight2D" parent="OptionsTitle"]
+position = Vector2(-5.00897, -14.9061)
+scale = Vector2(11.0514, 3.69547)
+texture = SubResource("GradientTexture2D_ci2ux")
 
 [connection signal="button_up" from="MarginContainer2/ExitButton" to="." method="_on_exit_button_button_up"]
 [connection signal="mouse_entered" from="MarginContainer2/ExitButton" to="." method="_on_exit_button_mouse_entered"]

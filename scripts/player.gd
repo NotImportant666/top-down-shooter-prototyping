@@ -103,18 +103,18 @@ func _physics_process(delta):
 	
 	## player body animations =====================================================================================================================================================
 	
-	if Input.is_action_just_pressed("shoot") and !isExecuting and !cutsceneIsPlaying:
+	if Input.is_action_pressed("shoot") and !isExecuting and !cutsceneIsPlaying:
 		isShooting = true
 		body_animations.play("shooting") # play shoot animation
 		player_camera.apply_shake() # call shake function from player camera
 		
-		#if !glock_sound.playing: # check if it's playing, if not, play the sound.
-		#	glock_sound.play()
+		if !machine_gun_shoot.playing: # check if it's playing, if not, play the sound.
+			machine_gun_shoot.play()
 		
 		
 		
 		if canShoot:
-			glock_sound.play()
+			#machine_gun_shoot.play()
 			shoot() # call shoot function
 			muzzle_flash.visible = true  # makes muzzle flash node and it's children visible
 			canShoot = false # set to false to regulate shot speed
@@ -127,7 +127,7 @@ func _physics_process(delta):
 		machine_gun_shoot.stop() # stops shooting animation
 		body_animations.play("walking") # start walking animation
 	elif !isShooting: # if direction is equal to zero
-		#machine_gun_shoot.stop() # stop machine gun animation
+		machine_gun_shoot.stop() # stop machine gun animation
 		body_animations.play("idle") # play idle animation
 	
 	## player leg animations =====================================================================================================================================================

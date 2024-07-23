@@ -15,11 +15,11 @@ class_name MainMenu
 @onready var margin_container = $MarginContainer as MarginContainer
 @onready var white_noise_2 = $Background/WhiteNoise2
 @onready var title_animation = $"MarginContainer/VBoxContainer/Title Animation"
-@onready var symbol = $MarginContainer/VBoxContainer/Symbol
 @onready var play_text_animation = $MarginContainer/HBoxContainer/VBoxContainer/Play/PlayTextAnimation
 @onready var options_text_animation = $MarginContainer/HBoxContainer/VBoxContainer/Options/OptionsTextAnimation
 @onready var exit_text_animation = $MarginContainer/HBoxContainer/VBoxContainer/Quit/ExitTextAnimation
 @onready var tv_light = $TVLight
+@onready var symbol = $MarginContainer/VBoxContainer/Symbol
 
 var playButtonPressed : bool = false
 
@@ -69,6 +69,7 @@ func play_text_animations() -> void:
 	play_text_animation.play("default")
 	options_text_animation.play("default")
 	exit_text_animation.play("default")
+	symbol.play("default")
 
 
 
@@ -86,7 +87,7 @@ func ready_tweens() -> void:
 	var alpha_tween : Tween= get_tree().create_tween() # create tween for black screen alpha
 	alpha_tween.tween_property(black_fade, "modulate", Color(0,0,0,0), 2) # tween black screen alpha to zero over 2 seconds
 	var symbol_spin_tween : Tween = get_tree().create_tween()
-	symbol_spin_tween.tween_property(symbol, "rotation", 20*PI, 400)
+	symbol_spin_tween.tween_property(symbol, "rotation", 200*PI, 4000)
 
 
 func _on_options_mouse_entered():

@@ -1,12 +1,12 @@
-[gd_scene load_steps=95 format=3 uid="uid://f2c4um7wirnr"]
+[gd_scene load_steps=100 format=3 uid="uid://f2c4um7wirnr"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_ivjlk"]
 [ext_resource type="FontFile" uid="uid://dirbplkocekf8" path="res://Real Assets/fonts/Jo_wrote_a_lovesong.ttf" id="2_eoigd"]
 [ext_resource type="Texture2D" uid="uid://b8y6tjjrb5jbb" path="res://Real Assets/backgrounds/TV Frame.png" id="2_mpntt"]
+[ext_resource type="Texture2D" uid="uid://cerome7m4gr7h" path="res://Real Assets/textures/symbol 1-sheet.png" id="3_6jxxf"]
 [ext_resource type="Texture2D" uid="uid://cdhk8w0uadnxb" path="res://Real Assets/backgrounds/white noise frames5.png" id="3_8dl1i"]
 [ext_resource type="AudioStream" uid="uid://curd26l7l0rf2" path="res://Real Assets/sounds/ambience/the-static-calls.mp3" id="4_5330v"]
 [ext_resource type="FontFile" uid="uid://cet36i7r0j0e1" path="res://Real Assets/fonts/DIEDIEDI.TTF" id="4_k8msn"]
-[ext_resource type="Texture2D" uid="uid://cfgcuntjam3eh" path="res://assets/symbol.png" id="4_sp4tt"]
 [ext_resource type="Texture2D" uid="uid://7vl3i337oysf" path="res://Real Assets/fonts/animated texts/playButtonGif.png" id="6_fyxby"]
 [ext_resource type="Texture2D" uid="uid://ds403b5rmxdja" path="res://Real Assets/fonts/animated texts/OptionsButtonGif.png" id="6_gno0h"]
 [ext_resource type="PackedScene" uid="uid://6gwcmgg178wt" path="res://scenes/options scenes/options_menu.tscn" id="6_utatq"]
@@ -207,6 +207,42 @@ gradient = SubResource("Gradient_60t42")
 fill = 1
 fill_from = Vector2(0.517094, 0.525641)
 fill_to = Vector2(0.897436, 0.226496)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0gdk8"]
+atlas = ExtResource("3_6jxxf")
+region = Rect2(0, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_012di"]
+atlas = ExtResource("3_6jxxf")
+region = Rect2(512, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ns7sb"]
+atlas = ExtResource("3_6jxxf")
+region = Rect2(1024, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dq3is"]
+atlas = ExtResource("3_6jxxf")
+region = Rect2(1536, 0, 512, 512)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ytceh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0gdk8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_012di")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ns7sb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dq3is")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
 
 [sub_resource type="Gradient" id="Gradient_m5ia0"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -513,7 +549,6 @@ grow_vertical = 2
 script = ExtResource("1_ivjlk")
 
 [node name="FadeControl" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -585,13 +620,15 @@ scale = Vector2(6.71875, 2.51953)
 energy = 0.8
 texture = SubResource("GradientTexture2D_h6ope")
 
-[node name="Symbol" type="Sprite2D" parent="MarginContainer/VBoxContainer"]
-modulate = Color(1, 1, 1, 0.72549)
+[node name="Symbol" type="AnimatedSprite2D" parent="MarginContainer/VBoxContainer"]
+modulate = Color(0, 0, 0, 1)
 position = Vector2(397, 303)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("4_sp4tt")
+scale = Vector2(0.45, 0.45)
+sprite_frames = SubResource("SpriteFrames_ytceh")
+frame_progress = 0.568243
 
 [node name="SymbolLight" type="PointLight2D" parent="MarginContainer/VBoxContainer/Symbol"]
+visible = false
 position = Vector2(-0.000114441, 20.0001)
 scale = Vector2(22.8789, 19.4023)
 texture = SubResource("GradientTexture2D_nq4vi")
@@ -650,7 +687,7 @@ text = "
 
 [node name="OptionsTextAnimation" type="AnimatedSprite2D" parent="MarginContainer/HBoxContainer/VBoxContainer/Options"]
 self_modulate = Color(0, 0, 0, 1)
-position = Vector2(70, 43)
+position = Vector2(69, 44)
 scale = Vector2(0.198885, 0.201639)
 sprite_frames = SubResource("SpriteFrames_7erhd")
 
@@ -703,6 +740,7 @@ color = Color(0.0823529, 0.0823529, 0.0823529, 1)
 [node name="TVLight" type="PointLight2D" parent="."]
 position = Vector2(592, 267)
 scale = Vector2(23.0469, 14.3359)
+energy = 1.5
 texture = SubResource("GradientTexture2D_vf56l")
 texture_scale = 0.8
 

@@ -8,10 +8,10 @@
 [ext_resource type="Script" path="res://scripts/PlayerCamera.gd" id="6_4cn7m"]
 [ext_resource type="Texture2D" uid="uid://dmfiw1jwdhl6" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/muzzle flash/pngtree-simple-muzzle-flash-vector-png-png-image_5797978.png" id="6_olv6l"]
 [ext_resource type="Texture2D" uid="uid://bnmkt8owu3xx4" path="res://Real Assets/characters/player/schizo/SchizoLegs16.png" id="6_upkn2"]
-[ext_resource type="Texture2D" uid="uid://bw13jhb075tl4" path="res://Real Assets/characters/player/schizo/SchizoHandgunWalk16.png" id="7_qhgy0"]
-[ext_resource type="Texture2D" uid="uid://be1eumvmvyoei" path="res://Real Assets/characters/player/schizo/schizoHandgunShooting2.png" id="8_8lrx2"]
+[ext_resource type="Texture2D" uid="uid://vd4qf5u1eqx4" path="res://Real Assets/characters/player/shooter/shooter-1_walk.png" id="7_yv1cs"]
 [ext_resource type="Texture2D" uid="uid://4e7k767ca4so" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/gradients/Circular 7 - 128x128.png" id="8_fcrwt"]
 [ext_resource type="AudioStream" uid="uid://crkdkbklkj72t" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/SOUNDS/player sounds/clean-machine-gun-burst-98224.mp3" id="8_sbgei"]
+[ext_resource type="Texture2D" uid="uid://bfv7tifpjjioi" path="res://Real Assets/characters/player/shooter/shooter-1_shoot.png" id="8_t4n5q"]
 [ext_resource type="Texture2D" uid="uid://bhk7bntbw6jad" path="res://Real Assets/characters/player/schizo/SkiMask.png" id="9_2d47w"]
 [ext_resource type="Texture2D" uid="uid://cofpiion5u0w8" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/gradients/Circular 5 - 128x128.png" id="9_mqb5y"]
 [ext_resource type="AudioStream" uid="uid://ds8sg80lptely" path="res://Real Assets/sounds/gun sounds/glock sound.wav" id="15_hy5eh"]
@@ -235,7 +235,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 2, 4, 6, 8, 10, 12, 14]
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -319,20 +319,21 @@ color = Color(0.733333, 0.733333, 0.733333, 1)
 [node name="LegSpriteStrip" type="Sprite2D" parent="."]
 texture = ExtResource("6_upkn2")
 hframes = 16
+frame = 6
 
 [node name="BodyWalkSpriteStrip" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(16, 0)
-texture = ExtResource("7_qhgy0")
-hframes = 16
+texture = ExtResource("7_yv1cs")
+hframes = 8
 
 [node name="BodyShootSpriteStrip" type="Sprite2D" parent="."]
 position = Vector2(16, 0)
-texture = ExtResource("8_8lrx2")
+texture = ExtResource("8_t4n5q")
 hframes = 2
-frame = 1
 
 [node name="HeadSprite" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("9_2d47w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -354,16 +355,17 @@ zoom = Vector2(2, 2)
 script = ExtResource("6_4cn7m")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(15, 0)
+position = Vector2(27, 5)
 target_position = Vector2(8000, 0)
 collision_mask = 5
 
 [node name="FiringSpeedTimer" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 0.15
 one_shot = true
 
 [node name="MuzzleFlash" type="Sprite2D" parent="."]
-position = Vector2(28, 1)
+visible = false
+position = Vector2(39, 6)
 scale = Vector2(0.119444, 0.105556)
 texture = ExtResource("6_olv6l")
 
