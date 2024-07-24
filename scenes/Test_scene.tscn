@@ -279,7 +279,7 @@ texture = ExtResource("1_qydwx")
 shape = SubResource("RectangleShape2D_oi6vf")
 
 [node name="LightOccluder2D2" type="LightOccluder2D" parent="CrowdEscapePath/Obstacles/pillar3"]
-position = Vector2(-630.951, -687.461)
+position = Vector2(-674.91, -693.214)
 scale = Vector2(2.58586, 2.87641)
 occluder = SubResource("OccluderPolygon2D_j4nka")
 

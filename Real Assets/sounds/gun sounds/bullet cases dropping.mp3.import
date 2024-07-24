@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dryp5ahw6fg22"
+path="res://.godot/imported/bullet cases dropping.mp3-561bd664015c0afe8a8003ac111f8f7e.mp3str"
+
+[deps]
+
+source_file="res://Real Assets/sounds/gun sounds/bullet cases dropping.mp3"
+dest_files=["res://.godot/imported/bullet cases dropping.mp3-561bd664015c0afe8a8003ac111f8f7e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

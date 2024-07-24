@@ -14,6 +14,9 @@ extends CharacterBody2D
 @onready var muzzle_flash_light = $MuzzleFlash/MuzzleFlashLight
 @onready var muzzle_flash_shadow = $MuzzleFlash/MuzzleFlashShadow
 @onready var glock_sound = $"Sounds/Glock sound"
+@onready var ejection_point = $EjectionPoint
+@onready var bullet_cases_dropping = $BulletCasesDropping
+@onready var bullet_cases_dropping_end = $BulletCasesDroppingEnd
 
 
 
@@ -34,6 +37,7 @@ extends CharacterBody2D
 @export var gun_smoke_sprite_scene : PackedScene
 @export var Enemy_on_hit_blood_animation : PackedScene
 @export var obstacle_on_hit_animation : PackedScene
+@export var bullet_casing_scene : PackedScene
 @export var direction : Vector2
 @export var speed : float = 200
 @export var camera_zoom : Vector2
@@ -110,6 +114,7 @@ func _physics_process(delta):
 		
 		if !machine_gun_shoot.playing: # check if it's playing, if not, play the sound.
 			machine_gun_shoot.play()
+			bullet_cases_dropping.play()
 		
 		
 		
@@ -125,9 +130,11 @@ func _physics_process(delta):
 		
 	elif direction and !isExecuting and !isShooting : # if direction is larger or less than zero
 		machine_gun_shoot.stop() # stops shooting animation
+		bullet_cases_dropping.stop()
 		body_animations.play("walking") # start walking animation
 	elif !isShooting: # if direction is equal to zero
 		machine_gun_shoot.stop() # stop machine gun animation
+		bullet_cases_dropping.stop()
 		body_animations.play("idle") # play idle animation
 	
 	## player leg animations =====================================================================================================================================================
@@ -141,7 +148,7 @@ func _physics_process(delta):
 	
 	ray_cast_2d.rotation = randf_range(-deg_to_rad(2), deg_to_rad(2)) # rotates the raycast by a random angle with 4 degrees, used for random bullets pread.
 	
-	player_camera.zoom = camera_zoom
+	player_camera.zoom = camera_zoom # sets the player camera zoom each physics frame, this is so i can change the zoom with an animation player and it will be updated
 	
 	## Dialogue Interaction =====================================================================================================================================================
 	
@@ -156,12 +163,15 @@ func _physics_process(delta):
 func _on_firing_speed_timer_timeout() -> void: # when firing speed timer reaches zero
 	canShoot = true # shoot function can be called again
 	isShooting = false
+	if !Input.is_action_pressed("shoot"):
+		bullet_cases_dropping_end.play()
 
 func shoot() -> void: # called when left mouse is pressed
 	if ray_cast_2d.is_colliding(): # checks if raycast is colliding with anything
 		var collision_point = ray_cast_2d.get_collision_point() # stores the point at which the raycas collides
 		draw_tracer(collision_point) # call draw_tracer function and pass in said collision point
 		instantiate_smoke(muzzle_flash.global_position) # call instantiate_smoke function and set the instance position to the muzzle flash postion
+		instantiate_bullet_casing_ejection(ejection_point.global_position)
 		
 		if ray_cast_2d.get_collider().is_in_group("enemy"):
 			instantiate_bullet_collision_effect(Enemy_on_hit_blood_animation, ray_cast_2d.get_collision_point())
@@ -194,11 +204,18 @@ func instantiate_smoke(barrel_position) -> void:
 	gun_smoke_sprite_instance.global_position = barrel_position # set it's position to the muzzle flash position
 	gun_smoke_sprite_instance.rotation = global_rotation - deg_to_rad(90) # rotate it by 90 degrees because the scene faces down rather than to the right.
 
-func instantiate_bullet_collision_effect(desired_effect: PackedScene,collision_point: Vector2):
+func instantiate_bullet_collision_effect(desired_effect: PackedScene,collision_point: Vector2) -> void:
 	var effect_instance = desired_effect.instantiate()
 	get_tree().root.add_child(effect_instance)
 	effect_instance.global_position = collision_point
 	effect_instance.rotation = (global_position - collision_point).angle() + deg_to_rad(180)
+
+func instantiate_bullet_casing_ejection(ejection_position : Vector2) -> void:
+	var bullet_casing_instance = bullet_casing_scene.instantiate()
+	get_tree().root.add_child(bullet_casing_instance)
+	bullet_casing_instance.global_position = ejection_position
+	bullet_casing_instance.global_rotation = rotation
+	print(rotation)
 
 
 
