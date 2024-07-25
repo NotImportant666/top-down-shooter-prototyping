@@ -147,7 +147,7 @@ func on_keybinds_loaded(data : Dictionary) -> void:
 
 func on_settings_data_loaded(data : Dictionary) -> void:
 	loaded_data = data
-	print(loaded_data)
+	
 	on_window_mode_selected(loaded_data.window_mode_index)
 	on_resolution_selected(loaded_data.resolution_index)
 	on_master_sound_set(loaded_data.master_volume)

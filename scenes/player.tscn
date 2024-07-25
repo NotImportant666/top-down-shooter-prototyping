@@ -15,9 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://bfv7tifpjjioi" path="res://Real Assets/characters/player/shooter/shooter-1_shoot.png" id="8_t4n5q"]
 [ext_resource type="Texture2D" uid="uid://bhk7bntbw6jad" path="res://Real Assets/characters/player/schizo/SkiMask.png" id="9_2d47w"]
 [ext_resource type="Texture2D" uid="uid://cofpiion5u0w8" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/gradients/Circular 5 - 128x128.png" id="9_mqb5y"]
-[ext_resource type="AudioStream" uid="uid://ds8sg80lptely" path="res://Real Assets/sounds/gun sounds/glock sound.wav" id="15_hy5eh"]
 [ext_resource type="AudioStream" uid="uid://dryp5ahw6fg22" path="res://Real Assets/sounds/gun sounds/bullet cases dropping.mp3" id="17_35jlj"]
 [ext_resource type="AudioStream" uid="uid://ctlrxrk7ouxpo" path="res://Real Assets/sounds/gun sounds/bullet cases dropping ending.mp3" id="18_h2bkp"]
+[ext_resource type="PackedScene" uid="uid://b740kh6b2eoxk" path="res://scenes/player related scenes/shotgun_raycast_system.tscn" id="19_vnp80"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i2a2h"]
 radius = 7.0
@@ -92,7 +92,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [3]
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_yfvsb"]
@@ -163,7 +163,7 @@ tracks/4/keys = {
 resource_name = "shooting"
 length = 0.250012
 loop_mode = 1
-step = 0.333333
+step = 0.06
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -171,7 +171,7 @@ tracks/0/path = NodePath("MuzzleFlash:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875),
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.18),
 "transitions": PackedFloat32Array(1, 1.07177, 1, 1.07177),
 "update": 1,
 "values": [true, false, true, false]
@@ -223,6 +223,35 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [1, 0]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.12),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"randomize_muzzle_flash_parameters"
+}, {
+"args": [],
+"method": &"randomize_muzzle_flash_parameters"
+}]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("MuzzleFlash:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.06, 0.18),
+"transitions": PackedFloat32Array(1, 0),
+"update": 0,
+"values": [Vector2(0.119444, 0.105556), Vector2(0.119444, 0.105556)]
 }
 
 [sub_resource type="Animation" id="Animation_epu7y"]
@@ -336,7 +365,6 @@ hframes = 8
 position = Vector2(16, 0)
 texture = ExtResource("8_t4n5q")
 hframes = 2
-frame = 1
 
 [node name="HeadSprite" type="Sprite2D" parent="."]
 visible = false
@@ -360,7 +388,7 @@ libraries = {
 zoom = Vector2(2, 2)
 script = ExtResource("6_4cn7m")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="MachineGunRaycast" type="RayCast2D" parent="."]
 position = Vector2(27, 5)
 target_position = Vector2(8000, 0)
 collision_mask = 5
@@ -370,6 +398,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="MuzzleFlash" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(27, 5)
 scale = Vector2(0.119444, 0.105556)
 texture = ExtResource("6_olv6l")
@@ -380,7 +409,7 @@ position = Vector2(-280, -10)
 rotation = 1.5708
 scale = Vector2(1.53845, 2.92894)
 color = Color(1, 0.992157, 0.709804, 1)
-energy = 0.5
+energy = 0.25
 shadow_enabled = true
 shadow_filter = 1
 shadow_filter_smooth = 3.0
@@ -392,7 +421,7 @@ texture_scale = 5.0
 position = Vector2(-330, -20)
 rotation = 1.5708
 scale = Vector2(3, 3)
-energy = 0.5
+energy = 0.25
 shadow_enabled = true
 shadow_filter = 1
 shadow_filter_smooth = 3.0
@@ -413,10 +442,6 @@ texture = ExtResource("9_mqb5y")
 offset = Vector2(0, -100)
 texture_scale = 2.5
 
-[node name="MachineGunShoot" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("8_sbgei")
-bus = &"SFX"
-
 [node name="ExecutionArea" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 16
@@ -426,21 +451,24 @@ shape = SubResource("CircleShape2D_an3xf")
 
 [node name="Sounds" type="Node" parent="."]
 
-[node name="Glock sound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource("15_hy5eh")
+[node name="GunshotSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("8_sbgei")
+bus = &"SFX"
+
+[node name="BulletCasesDropping" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("17_35jlj")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="BulletCasesDroppingEnd" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("18_h2bkp")
 volume_db = -10.0
 bus = &"SFX"
 
 [node name="EjectionPoint" type="Node2D" parent="."]
 position = Vector2(8, 8)
 
-[node name="BulletCasesDropping" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("17_35jlj")
-bus = &"SFX"
-
-[node name="BulletCasesDroppingEnd" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("18_h2bkp")
-bus = &"SFX"
+[node name="ShotgunRaycastSystem" parent="." instance=ExtResource("19_vnp80")]
 
 [connection signal="timeout" from="FiringSpeedTimer" to="." method="_on_firing_speed_timer_timeout"]
 [connection signal="area_entered" from="ExecutionArea" to="." method="_on_execution_area_area_entered"]

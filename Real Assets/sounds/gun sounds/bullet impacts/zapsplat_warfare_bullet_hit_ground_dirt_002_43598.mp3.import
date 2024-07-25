@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b1x8qt1tr5k7a"
+path="res://.godot/imported/zapsplat_warfare_bullet_hit_ground_dirt_002_43598.mp3-4fb101f69648c0e7b1cc5e5fec3d6b81.mp3str"
+
+[deps]
+
+source_file="res://Real Assets/sounds/gun sounds/bullet impacts/zapsplat_warfare_bullet_hit_ground_dirt_002_43598.mp3"
+dest_files=["res://.godot/imported/zapsplat_warfare_bullet_hit_ground_dirt_002_43598.mp3-4fb101f69648c0e7b1cc5e5fec3d6b81.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

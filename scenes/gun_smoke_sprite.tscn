@@ -206,6 +206,7 @@ position = Vector2(1, 0)
 rotation = -1.5708
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("1_xq4ow")
+offset = Vector2(0, 35)
 hframes = 8
 vframes = 5
 script = ExtResource("2_v407u")

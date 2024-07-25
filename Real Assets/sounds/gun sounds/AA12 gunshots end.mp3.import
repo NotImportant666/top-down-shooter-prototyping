@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dpj1owbxsp8u3"
+path="res://.godot/imported/AA12 gunshots end.mp3-d1b880ddcac834e4b71a88b64322776e.mp3str"
+
+[deps]
+
+source_file="res://Real Assets/sounds/gun sounds/AA12 gunshots end.mp3"
+dest_files=["res://.godot/imported/AA12 gunshots end.mp3-d1b880ddcac834e4b71a88b64322776e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

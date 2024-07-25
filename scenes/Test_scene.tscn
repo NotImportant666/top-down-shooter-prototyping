@@ -210,7 +210,6 @@ color = Color(0, 0, 0, 1)
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_jqlbb")
 volume_db = -5.0
-autoplay = true
 
 [node name="Player" parent="." instance=ExtResource("4_e780x")]
 position = Vector2(407, 589)

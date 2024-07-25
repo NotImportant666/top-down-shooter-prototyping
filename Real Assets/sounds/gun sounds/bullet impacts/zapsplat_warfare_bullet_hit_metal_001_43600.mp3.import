@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bqwolkyspakd8"
+path="res://.godot/imported/zapsplat_warfare_bullet_hit_metal_001_43600.mp3-63569c128cc6a7d9b9e55ce6f68b7846.mp3str"
+
+[deps]
+
+source_file="res://Real Assets/sounds/gun sounds/bullet impacts/zapsplat_warfare_bullet_hit_metal_001_43600.mp3"
+dest_files=["res://.godot/imported/zapsplat_warfare_bullet_hit_metal_001_43600.mp3-63569c128cc6a7d9b9e55ce6f68b7846.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

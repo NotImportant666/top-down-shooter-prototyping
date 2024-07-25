@@ -1,24 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://butyyver2kyta"]
+[gd_scene load_steps=11 format=3 uid="uid://butyyver2kyta"]
 
 [ext_resource type="Texture2D" uid="uid://ujc6ja5l50j5" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/gore/sprBloodSmoke_strip9.png" id="1_h03oy"]
 [ext_resource type="Script" path="res://scripts/OnHitBloodAnimation.gd" id="2_1txss"]
-
-[sub_resource type="Animation" id="Animation_tcnkk"]
-resource_name = "blood_animation"
-length = 0.2
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
-}
+[ext_resource type="AudioStream" uid="uid://couaupxmhrssf" path="res://Real Assets/sounds/gun sounds/bullet impacts/zapsplat_warfare_bullet_hit_body_001_43593.mp3" id="3_et74r"]
+[ext_resource type="AudioStream" uid="uid://pl80rm157s78" path="res://Real Assets/sounds/gun sounds/bullet impacts/zapsplat_warfare_bullet_hit_body_002_43594.mp3" id="4_okafv"]
+[ext_resource type="AudioStream" uid="uid://dxypq86773cra" path="res://Real Assets/sounds/gun sounds/bullet impacts/zapsplat_warfare_bullet_hit_body_003_43595.mp3" id="5_va6pk"]
+[ext_resource type="AudioStream" uid="uid://cjl4tk4aqr0n" path="res://Real Assets/sounds/gun sounds/bullet impacts/zapsplat_warfare_bullet_hit_body_004_43596.mp3" id="6_b1tjc"]
 
 [sub_resource type="Animation" id="Animation_byulk"]
 length = 0.001
@@ -35,13 +22,54 @@ tracks/0/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_tcnkk"]
+resource_name = "blood_animation"
+length = 0.2
+step = 0.19
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.19),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pk1ra"]
 _data = {
 "RESET": SubResource("Animation_byulk"),
 "blood_animation": SubResource("Animation_tcnkk")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wjhj1"]
+streams_count = 4
+stream_0/stream = ExtResource("3_et74r")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("4_okafv")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("5_va6pk")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("6_b1tjc")
+stream_3/weight = 1.0
+
 [node name="OnHitBloodAnimation" type="Sprite2D"]
+visible = false
 texture = ExtResource("1_h03oy")
 hframes = 9
 script = ExtResource("2_1txss")
@@ -50,3 +78,8 @@ script = ExtResource("2_1txss")
 libraries = {
 "": SubResource("AnimationLibrary_pk1ra")
 }
+
+[node name="BodyCollisionSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_wjhj1")
+max_distance = 500.0
+bus = &"SFX"

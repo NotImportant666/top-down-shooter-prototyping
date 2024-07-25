@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://b740kh6b2eoxk"]
+
+[ext_resource type="Script" path="res://scripts/shotgun_raycast_system.gd" id="1_icdcd"]
+
+[node name="ShotgunRaycastSystem" type="Node2D"]
+script = ExtResource("1_icdcd")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(8000, 0)
+collision_mask = 5
+
+[node name="RayCast2D2" type="RayCast2D" parent="."]
+target_position = Vector2(8000, 0)
+collision_mask = 5
+
+[node name="RayCast2D3" type="RayCast2D" parent="."]
+target_position = Vector2(8000, 0)
+collision_mask = 5
+
+[node name="RayCast2D4" type="RayCast2D" parent="."]
+target_position = Vector2(8000, 0)
+collision_mask = 5
+
+[node name="RayCast2D5" type="RayCast2D" parent="."]
+target_position = Vector2(8000, 0)
+collision_mask = 5
+
+[node name="RayCast2D6" type="RayCast2D" parent="."]
+target_position = Vector2(8000, 0)
+collision_mask = 5

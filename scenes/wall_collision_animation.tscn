@@ -1,11 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://dt0p77sbspowv"]
+[gd_scene load_steps=9 format=3 uid="uid://dt0p77sbspowv"]
 
 [ext_resource type="Texture2D" uid="uid://dcqmghs2e8nvf" path="res://assets/HOTLINE MIAMI STOLEN ASSETS/gore/sprHit_strip7.png" id="1_1e3ha"]
 [ext_resource type="Script" path="res://scripts/wall_collision_animation.gd" id="2_v6e54"]
+[ext_resource type="AudioStream" uid="uid://bxgjhfoh7gmmy" path="res://Real Assets/sounds/gun sounds/bullet impacts/zapsplat_warfare_bullet_hit_ground_dirt_001_43597.mp3" id="3_vxajm"]
+[ext_resource type="AudioStream" uid="uid://b1x8qt1tr5k7a" path="res://Real Assets/sounds/gun sounds/bullet impacts/zapsplat_warfare_bullet_hit_ground_dirt_002_43598.mp3" id="4_mugfo"]
+[ext_resource type="AudioStream" uid="uid://bdvk8ahy6fgpb" path="res://Real Assets/sounds/gun sounds/bullet impacts/zapsplat_warfare_bullet_hit_ground_dirt_003_43599.mp3" id="5_oxyb1"]
 
 [sub_resource type="Animation" id="Animation_6j6lc"]
 resource_name = "on hit"
 length = 0.13
+step = 0.13
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -18,11 +22,33 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.13),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c15su"]
 _data = {
 "on hit": SubResource("Animation_6j6lc")
 }
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_j20k2"]
+playback_mode = 1
+streams_count = 3
+stream_0/stream = ExtResource("3_vxajm")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("4_mugfo")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("5_oxyb1")
+stream_2/weight = 1.0
 
 [node name="wall_collision_animation" type="Sprite2D"]
 self_modulate = Color(1, 0.996078, 0.745098, 1)
@@ -35,3 +61,8 @@ script = ExtResource("2_v6e54")
 libraries = {
 "": SubResource("AnimationLibrary_c15su")
 }
+
+[node name="WallCollisionSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_j20k2")
+max_distance = 1000.0
+bus = &"SFX"
