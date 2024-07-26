@@ -86,6 +86,7 @@ func knock_down() -> void: # gets called 1 fifth of the time when the player ray
 	animation_player.play("killed") # play death animation
 	await animation_player.animation_finished # await for said animation to finish
 	animation_player.play("knocked down") # play the knocked down animation which just flashes the color to indicate you can execute them
+	print(execution_body.global_rotation)
 
 func execute() -> void: # called when enemy is knocked down, player is in execution range, player clicks E followed by player clicking left mouse.
 	if dead:

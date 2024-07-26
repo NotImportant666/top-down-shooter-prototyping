@@ -20,8 +20,7 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("quit"): # check every frame if quit button is pressed
 		get_tree().quit() # close program, change this to open pause menu in the future
-	
-	
+
 func _on_player_shots_fired() -> void: # called when shots fired signal is emitted from player scene
 	crowd_escape_path.enabled = true # turn on the pathing region so enemies start moving
 
@@ -32,7 +31,7 @@ func intro_cutscene_play() -> void:
 	await cutscene.animation_finished
 	play_UI_animation.emit()
 	cutscene.play("dialogue")
-	
+
 
 
 

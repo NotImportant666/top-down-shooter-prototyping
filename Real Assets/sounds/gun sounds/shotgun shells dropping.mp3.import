@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b0igktolgfdiw"
+path="res://.godot/imported/shotgun shells dropping.mp3-5d11b38eb779a14dd141c211c8c63acc.mp3str"
+
+[deps]
+
+source_file="res://Real Assets/sounds/gun sounds/shotgun shells dropping.mp3"
+dest_files=["res://.godot/imported/shotgun shells dropping.mp3-5d11b38eb779a14dd141c211c8c63acc.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

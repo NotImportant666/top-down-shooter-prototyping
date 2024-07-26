@@ -82,4 +82,4 @@ libraries = {
 [node name="BodyCollisionSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_wjhj1")
 max_distance = 500.0
-bus = &"SFX"
+bus = &"bullet impacts"

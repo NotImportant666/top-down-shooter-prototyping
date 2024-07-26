@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bww5kw4q7ax2k"
+path="res://.godot/imported/AA12 gunshots.ogg-6308fad927b4e116d26243c215bb7a98.oggvorbisstr"
+
+[deps]
+
+source_file="res://Real Assets/sounds/gun sounds/AA12 gunshots.ogg"
+dest_files=["res://.godot/imported/AA12 gunshots.ogg-6308fad927b4e116d26243c215bb7a98.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

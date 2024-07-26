@@ -9,14 +9,15 @@ extends CharacterBody2D
 @onready var firing_speed_timer = $FiringSpeedTimer as Timer
 @onready var muzzle_flash = $MuzzleFlash as Sprite2D
 @onready var player_camera = $PlayerCamera as Camera2D
-@onready var gunshot_sound = $Sounds/GunshotSound as AudioStreamPlayer
+@onready var gunshot_sound = $GunSounds/GunshotSound as AudioStreamPlayer
 @onready var player = $"." as CharacterBody2D
 @onready var muzzle_flash_light = $MuzzleFlash/MuzzleFlashLight
 @onready var muzzle_flash_shadow = $MuzzleFlash/MuzzleFlashShadow
 @onready var ejection_point = $EjectionPoint
-@onready var bullet_cases_dropping = $Sounds/BulletCasesDropping
-@onready var bullet_cases_dropping_end = $Sounds/BulletCasesDroppingEnd
+@onready var bullet_cases_dropping = $GunSounds/BulletCasesDropping
+@onready var bullet_cases_dropping_end = $GunSounds/BulletCasesDroppingEnd
 @onready var shotgun_raycast_system = $ShotgunRaycastSystem
+@onready var gunshot_end = $GunSounds/GunshotEnd
 
 
 
@@ -63,6 +64,7 @@ signal invert_colors_signal
 signal continue_dialogue
 
 var execution_positions : Array = []
+var execution_rotations : Array = []
 var enemy_instance : CharacterBody2D
 var shotgun_bullet_collision_points : Array = []
 
@@ -72,9 +74,17 @@ var shotgun_bullet_collision_points : Array = []
 func _ready():
 	match current_weapon:
 		0:
-			gunshot_sound.stream = load("res://Real Assets/sounds/gun sounds/AA12 Gunshots.mp3")
+			gunshot_sound.stream = load("res://Real Assets/sounds/gun sounds/AA12 gunshots.ogg")
+			bullet_cases_dropping.stream = load("res://Real Assets/sounds/gun sounds/shotgun shells dropping.mp3")
+			bullet_cases_dropping_end.stream = load("res://Real Assets/sounds/gun sounds/shotgun shells dropping end.mp3")
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("bullet impacts"), -16) 
+			shotgun_raycast_system.visible = true
 		1:
 			gunshot_sound.stream = load("res://assets/HOTLINE MIAMI STOLEN ASSETS/SOUNDS/player sounds/clean-machine-gun-burst-98224.mp3")
+			bullet_cases_dropping.stream = load("res://Real Assets/sounds/gun sounds/bullet cases dropping.mp3")
+			bullet_cases_dropping_end.stream = load("res://Real Assets/sounds/gun sounds/bullet cases dropping ending.mp3")
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("bullet impacts"), -5) 
+			shotgun_raycast_system.visible = false
 
 
 
@@ -85,6 +95,9 @@ func _physics_process(delta):
 	if !cutsceneIsPlaying and !isExecuting:
 		direction = Input.get_vector("left","right","up","down") # create vector based on input
 		look_at(get_global_mouse_position()) # makes scene look at the mouse
+	elif isExecuting:
+		direction = Vector2(-1,0).rotated(execution_rotations[0])
+		rotation = direction.angle()
 	else:
 		rotation = direction.angle()
 	
@@ -103,7 +116,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("execute") and isInExecutionRange: # if E gets pressed while the ExecutionArea overlaps with an enmy area, run the cote
 		isExecuting = true # is in execution state
 		global_position = execution_positions[0] # set position the execution are for a smooth transition into a different animation
-		player.visible = false # make player invisible so i can play the execution animation instead
+		#player.visible = false # make player invisible so i can play the execution animation instead
 		
 	
 	if isExecuting and Input.is_action_just_pressed("shoot"): # If E has been pressed while in an execution area, click shoot to execute and exit execution state
@@ -121,7 +134,7 @@ func _physics_process(delta):
 	
 	if Input.is_action_pressed("shoot") and !isExecuting and !cutsceneIsPlaying:
 		isShooting = true
-		body_animations.play("shooting") # play shoot animation
+		body_animations.play("LMG shooting") # play shoot animation
 		
 		
 		
@@ -152,11 +165,11 @@ func _physics_process(delta):
 		
 		
 	elif direction and !isExecuting and !isShooting : # if direction is larger or less than zero
-		gunshot_sound.stop() # stops shooting animation
+		gunshot_sound.stop() # stops shooting sound
 		bullet_cases_dropping.stop()
 		body_animations.play("walking") # start walking animation
 	elif !isShooting: # if direction is equal to zero
-		gunshot_sound.stop() # stop machine gun animation
+		gunshot_sound.stop() # stop machine gun sound
 		bullet_cases_dropping.stop()
 		body_animations.play("idle") # play idle animation
 	
@@ -186,12 +199,9 @@ func _physics_process(delta):
 func _on_firing_speed_timer_timeout() -> void: # when firing speed timer reaches zero
 	canShoot = true # shoot function can be called again
 	isShooting = false
-	match current_weapon:
-		0:
-			pass
-		1:
-			if !Input.is_action_pressed("shoot"):
-				bullet_cases_dropping_end.play()
+	if !Input.is_action_pressed("shoot"):
+		gunshot_end.play()
+		bullet_cases_dropping_end.play()
 
 func machine_gun_shoot_function() -> void: # called when left mouse is pressed
 	if machine_gun_raycast.is_colliding(): # checks if raycast is colliding with anything
@@ -238,10 +248,12 @@ func _on_execution_area_area_entered(area) -> void:
 	
 	enemy_instance = area.get_parent()
 	execution_positions.insert(0 ,area.global_position)
+	execution_rotations.insert(0, area.global_rotation)
 	isInExecutionRange = true
 
 func _on_execution_area_area_exited(area) -> void:
 	execution_positions.erase(area.global_position)
+	execution_rotations.erase(area.global_rotation)
 	isInExecutionRange = false
 
 func randomize_muzzle_flash_parameters() -> void:
